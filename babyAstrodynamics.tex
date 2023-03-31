@@ -15,17 +15,25 @@
 \usepackage{float}
 \usepackage{pgffor}
 \usepackage[pdfencoding=auto, psdextra]{hyperref}
+\hypersetup{
+  colorlinks   = true, %Colours links instead of ugly boxes
+  urlcolor     = blue, %Colour for external hyperlinks
+  linkcolor    = blue, %Colour of internal links
+}
 \usepackage[a4paper, left=2cm,right=2cm, top=4cm, bottom=4cm]{geometry}
+\usepackage{comment}
 \allowdisplaybreaks
 
-\title{It's Only Rocket Science}
+\title{Fundamentals of Orbital Mechanics}
 \author{Sir Fig Newton and Johannes Momma\\Purdon't University, School of Aeronautics and Astronautics}
-\date{Perpetually Ongoing, Est. March 2023}
+\date{Est. March 2023}
 
 \begin{document}
 
 \maketitle
-This document contains derivations of numerous orbital parameters, equations, relationships, formulae, and the like. Some equations stray from those strictly describing orbits into general astrodynamic territory.
+
+There are many publications that purportedly cover the basics of astrodynamics and orbital mechanics, and many even claim to be catered to an uninitiated audience. However, many of them take for granted some prior knowledge of orbital mechanics, and neglect the ever-important step of ensuring that the reader can follow \textit{every} step of the process. This document intends to rectify this by covering the basics of orbital dynamics, from derivations of orbital motion to complex orbital maneuvers, while ensuring the reader can follow every step. This means algebraic steps are shown, motivations are discussed (where possible) instead of completing procedures seemingly out of the blue, and conclusions are summarized.
+
 \pagebreak
 \tableofcontents
 
@@ -215,7 +223,7 @@ This can now be expressed in terms of $r$, substituting $u=\frac{1}{r}$
 
 \section{Orbit Equation}
 
-This section focuses on deriving numerous expressions describing orbits
+This section focuses on deriving numerous expressions describing orbits, with the goal of ultimately finding geometric relationships between parameters of the orbit.
 
 \bigskip\bigskip
 \subsection{Explicit Orbit Equation}
@@ -229,7 +237,7 @@ The first equation found will describe $r$ as a function of $\theta$
     r=\frac{\frac{h^2}{\mu}}{1+C_1\frac{h^2}{\mu}\cos(\theta-\omega)}
 \end{equation}
 
-Equation \eqref{Polar with h, mu, C} describes a conic section centered at a focus (as will be be proven in Section \ref{sec:Kepler's First Law}), with the major axis being slanted at an angle of $\omega$ (which is called the Argument of Periapsis). In order for this to describe a \textit{closed} orbit, $-1<\frac{C_1h^2}{\mu}<1$ so that the denominator is never zero or negative.
+Equation \eqref{Polar with h, mu, C} describes a conic section centered at a focus (as will be be proven in Section \ref{sec:Kepler's First Law}), with the major axis being slanted at an angle of $\omega$ (which is called the Argument of Periapsis; see Figure \ref{fig:Wiki Image}). In order for this to describe a \textit{closed} orbit, $-1<\frac{C_1h^2}{\mu}<1$ so that the denominator is never zero or negative.
 
 %\subsubsection{Apoapsis and Periapsis}\label{sec:Ap and Pe Early}
 
@@ -240,7 +248,7 @@ Equation \eqref{Polar with h, mu, C} describes a conic section centered at a foc
 
 %Note that the apoapsis is only defined for closed orbits.
 
-\subsubsection{Semi-Major Axis}
+\subsection{Semi-Major Axis}
 
 The Semi-Major Axis, usually expressed SMA or simply $a$, is half of the length of the major axis. The major axis of the ellipse spans from the closest point to the focus to the furthest point (which can be found by maximizing and minimizing the denominator of Equation \eqref{Polar with h, mu, C} repsectively). The major axis $2a$ is therefore the sum of the two extreme points on on the conic section (see Figure \ref{fig:Orbit Diagram}).
 \begin{align*}
@@ -250,7 +258,8 @@ The Semi-Major Axis, usually expressed SMA or simply $a$, is half of the length 
        & =\frac{2\frac{h^2}{\mu}}{(1+C_1\frac{h^2}{\mu})(1-C_1\frac{h^2}{\mu})}                                                            \\
     a  & =\frac{\frac{h^2}{\mu}}{(1+C_1\frac{h^2}{\mu})(1-C_1\frac{h^2}{\mu})}
 \end{align*}
-\subsubsection{Eccentricity}
+
+\subsection{Eccentricity}
 
 The eccentricity $e$ of an ellipse is defined as the ratio of the distance from the foci to the center and the semimajor axis (again, see Figure \ref{fig:Orbit Diagram}).
 \begin{align*}
@@ -266,9 +275,9 @@ This allows the orbit equation Equation \eqref{Polar with h, mu, C} to be redefi
     r=\frac{\frac{h^2}{\mu}}{1+e\cos(\theta-\omega)}
 \end{equation}
 
-\subsubsection{Semi-Latus Rectum}
+\subsection{Semi-Latus Rectum}
 
-In an ellipse, the semi-latus rectum $p$ is defined as the perpendicular distance between the focus and the ellipse. In other words, it is defined as half of the width of the ellipse at the focus. Because Equation \eqref{Polar with h, mu, e} has the focus at the origin, the semi-latus rectum occurs when $\theta$ is 90 degrees (or $\frac{\pi}{2}$ radians) offset from the apses. The semi-latus rectum can therefore be found by simply evaluating Equation \eqref{Polar with h, mu, e} at that point.
+In an ellipse, the semi-latus rectum $p$ is defined as the perpendicular distance between the focus and the ellipse (see Figure \ref{fig:Orbit Diagram}). In other words, it is half of the width of the ellipse at the focus. Because Equation \eqref{Polar with h, mu, e} has the focus at the origin, the semi-latus rectum occurs when $\theta$ is 90 degrees (or $\frac{\pi}{2}$ radians) offset from the apses. The semi-latus rectum can therefore be found by simply evaluating Equation \eqref{Polar with h, mu, e} at that point.
 \begin{align*}
     p & =\frac{\frac{h^2}{\mu}}{1+e\cos(90^\circ)} \\
       & =\frac{\frac{h^2}{\mu}}{1+e(0)}            \\
@@ -285,7 +294,7 @@ Which allows Equation \eqref{Polar with h, mu, e} to transform to
     r=\frac{p}{1+e\cos(\theta-\omega)}
 \end{equation}
 
-However, the semi-latus rectum term is still redundant, and will now be eliminated. Recall the logic behind apoapsis and periapsis radii: the apoapsis occurs when the denominator is minimized, while the periapsis occurs when it is maximized. Applying this to Equation \eqref{Polar with p, e}:
+However, the semi-latus rectum term is still inideal; the objective is to express everything in terms of $a$ and $e$. Recall the logic behind apoapsis and periapsis radii: the apoapsis occurs when the denominator is minimized, while the periapsis occurs when it is maximized. Applying this to Equation \eqref{Polar with p, e}:
 \begin{align*}
     r_\text{ap}      & =\frac{p}{1-e} & \frac{p}{1+e} & =r_\text{pe}      \\
     r_\text{ap}(1-e) & =p             & p             & =r_\text{pe}(1+e) \\
@@ -358,7 +367,20 @@ $$\left(\frac{x+c}{a}\right)^2+\left(\frac{y}{b}\right)^2=1$$
 
 The $+$ denotes that the right focus (as opposed to the left one) is at the origin. It was already known that $a$ was the semi-major axis, however this equation also yields some other useful information. This formula implies that the semi-minor axis $b=a\sqrt{1-e^2}$, and that the distance from the origin (which is at the focus of the ellipse) to its center is $c=ea$.
 
-This equation is also valid for hyperbolic orbits, as $a\sqrt{1-e^2}$ will be purely complex, but then will be squared to become negative. For parabolic orbits, however, this equation is not valid.
+This equation is also valid for hyperbolic orbits, as $a\sqrt{1-e^2}$ will be purely complex, but then will be squared to become negative. For parabolic orbits, however, this equation is not valid. A similar approach is valid for hyperbolic orbits in which $e=1$.
+
+\begin{align*}
+    r                 & =\frac{p}{1+e\cos(\theta)}              \\
+    r                 & =\frac{p}{1+\cos(\theta)}               \\
+    r(1+\cos(\theta)) & = p                                     \\
+    r+r\cos(\theta)   & = p                                     \\
+    r                 & = p-r\cos(\theta)                       \\
+    r^2               & = p^2-2pr\cos(\theta)+(r\cos(\theta))^2 \\
+    x^2+y^2           & = p^2-2px+x^2                           \\
+    y^2               & = p^2-2px                               \\
+\end{align*}
+
+Notice that the multiplicity of $y$ is 2, and the multiplicity of $x$ is 1. This is a parabola that opens up in the $-x$ direction.
 
 \bigskip\bigskip
 \subsection{Kepler's Second Law}
@@ -441,7 +463,8 @@ Conservation of energy can be proven quite simply with physical reasoning, as th
 
 Because the derivative of $\varepsilon$ with respect to distance travelled is zero, it does not change across an orbit and will be conserved.
 
-\section{Geometric Orbit Values}
+\pagebreak
+\section{Orbit Geometry}\label{sec:Orbit geoemtry}
 
 Various elements of an orbit can now be expressed simply. Note that there is a lot of variation in standards when it comes to hyperbolas and parabolas. In this document, the convention will be used that $a, c<0$ in a hyperbola. Note that $p$ is always positive. In a parabola, $a$ is infinite.
 
@@ -458,7 +481,7 @@ From Figure \ref{fig:Orbit Diagram}, a geometric observation can be made.
                     & = a(1-e)
 \end{align*}
 
-TThis equation is valid for all elliptic and hyperbolic orbits, but not for parabolic ones.
+TThis equation is valid for all elliptic and hyperbolic orbits, but not for parabolic ones (the semi-major axis of a parabola is infinite, while $1-e$ equals zero in a parabola).
 \begin{equation}\label{Periapsis Radius Geometric}
     r_\text{pe}=a(1-e)
 \end{equation}
@@ -507,11 +530,11 @@ A right triangle can then be drawn with which further reasoning can be applied
         \filldraw[red] (0,\SmA) circle (2pt);
 
         \draw[thin, densely dashed] (0,0) ellipse ({\SMA} and {\SmA});
-        \draw[<->, thick] (0, 0) -- (\SMA-\pe, 0) node[midway, below, black] {$a-r_\text{pe}$};
-        \draw[<->, thick] (0, 0) -- (0, \SmA) node[midway, right, black] {$b$};
+        \draw[<->, thick] (0, 0) -- (\SMA-\pe, 0) node[midway, below] {$a-r_\text{pe}$};
+        \draw[<->, thick] (0, 0) -- (0, \SmA) node[midway, right] {$b$};
 
-        \draw[<->, thick] (-\ap+\SMA, 0) -- (0, \SmA) node[midway, left, black] {$d$};
-        \draw[<->, thick] (\ap-\SMA, 0) -- (0, \SmA) node[midway, right, black] {$d$};
+        \draw[<->, thick] (-\ap+\SMA, 0) -- (0, \SmA) node[midway, left] {$d$};
+        \draw[<->, thick] (\ap-\SMA, 0) -- (0, \SmA) node[midway, right] {$d$};
 
     \end{tikzpicture}
 
@@ -534,33 +557,73 @@ Note from Figure \ref{fig:Orbit Diagram} that $r_\text{pe}+c=a$, meaning that $a
     b   & = \sqrt{a^2(1-e^2)} \\
     b   & = a\sqrt{1-e^2}     \\
 \end{align*}
-This can be extended to hyperbolic orbits by ensuring that the argument of the square root function is always positive. Note that for some hyperbolic orbits (namely where $e>\sqrt{2}$), $|b|>|a|$.
+
+The semi-minor axis is not well defined for hyperbolic orbits. The argument of the square root can be put in an absolute value to ensure that the semi-minor axis is real. Note that for some hyperbolic orbits (namely where $e>\sqrt{2}$), $|b|>|a|$.
 
 \begin{equation}\label{Semi Minor Axis Geometric}
-    b=a\sqrt{1-e^2}
+    b=a\sqrt{|1-e^2|}
 \end{equation}
 
 \bigskip\bigskip
-\subsection{Period}\label{Sec:Period Geometric}
+\subsection{Geometry in Terms of Measurable Parameters}\label{sec:Geometry in terms of Measurable Values}
 
-The area of a closed ellipse is known from geometry.
-$$\text{Area}=\pi{}ab$$
+While $e$ and $a$ are conventionally used as the defining parameters of an orbit, the apses can instead be used to describe elliptic orbits. Once $e$ and $a$ are known, other geometric parameters can be found as before. Hyperbolic and parabolic orbits do not have a defined apoapsis, so this does not apply to them.
 
-From Kepler's first law (which was proven in Section \ref{sec:Kepler's First Law}), an equation exists that tells us the area of an orbit as a function of time (Equation \eqref{Kepler's First Law}). If the entire period $T$ is used as the time step, then the area can be found.
+\subsubsection{Semi-Major Axis in terms of Apses}
+From Figure \ref{fig:Orbit Diagram}, $a$ can be found in terms of $r_\text{pe}$ and $r_\text{ap}$
+
 \begin{align*}
-    \text{Area}          & = \frac{h}{2}P                                     \\
-    \pi{}ab              & = \frac{h}{2}P                                     \\
-    \pi{}a^2\sqrt{1-e^2} & = \frac{h}{2}P                                     \\
-    \pi{}a^2\sqrt{1-e^2} & = \frac{\sqrt{a\mu(1-e^2)}}{2}P                    \\
-    T                    & = \frac{2\pi{}a^2\sqrt{1-e^2}}{\sqrt{a\mu(1-e^2)}} \\
-                         & = 2\pi{}a^2\sqrt{\frac{1-e^2}{a\mu(1-e^2)}}        \\
-                         & = \sqrt{\frac{4\pi^2a^4}{a\mu}}                    \\
+    2a & = r_\text{pe}+r_\text{ap}
 \end{align*}
-\begin{equation}\label{Period Geometric}
-    T = \sqrt{\frac{4\pi^2a^3}{\mu}}
+\begin{equation}\label{SMA in terms of apses}
+    a = \frac{r_\text{pe}+r_\text{ap}}{2}
 \end{equation}
 
-Hyperbolic and parabolic orbits do not have periods, as they are not closed.
+\subsubsection{Eccentricity in Terms of Apses}
+
+The eccentricity can also be put in terms of $r_\text{ap}$ and $r_\text{pe}$ using Equations \eqref{Periapsis Radius Geometric} and \eqref{Apoapsis Radius Geometric}.
+\begin{align*}
+    r_\text{ap}             & =a(1+e) & r_\text{pe}             & =a(1-e) \\
+    \frac{r_\text{ap}}{1+e} & =a      & \frac{r_\text{pe}}{1-e} & =a      \\
+\end{align*}
+
+Setting both sides equal to eachother,
+
+\begin{align*}
+    \frac{r_\text{ap}}{1+e}                                   & =\frac{r_\text{pe}}{1-e}                                                                         \\
+    \frac{1+e}{r_\text{ap}}                                   & =\frac{1-e}{r_\text{pe}}                                                                         \\
+    \frac{1}{r_\text{ap}}+\frac{e}{r_\text{ap}}               & =\frac{1}{r_\text{pe}}-\frac{e}{r_\text{pe}}                                                     \\
+    \frac{e}{r_\text{ap}}+\frac{e}{r_\text{pe}}               & =\frac{1}{r_\text{pe}}-\frac{1}{r_\text{ap}}                                                     \\
+    e\left(\frac{1}{r_\text{ap}}+\frac{1}{r_\text{pe}}\right) & =\frac{1}{r_\text{pe}}-\frac{1}{r_\text{ap}}                                                     \\
+    e                                                         & =\frac{\frac{1}{r_\text{pe}}-\frac{1}{r_\text{ap}}}{\frac{1}{r_\text{pe}}+\frac{1}{r_\text{ap}}} \\
+\end{align*}
+\begin{equation}\label{Accentricity in terms of apses}
+    e=\frac{r_\text{pe}^{-1}-r_\text{ap}^{-1}}{r_\text{pe}^{-1}+r_\text{ap}^{-1}}
+\end{equation}
+
+\bigskip\bigskip
+\subsection{Conclusion}
+
+Throughout this section, many geometric relationships have been found describing orbits. Most importantly, it has been shown that an orbital trajectory can be described in its plane using only two parameters: the semi-major axis $a$ and the eccentricity $e$. These relationships are summarized here.
+
+\bigskip
+The periapsis and apoapsis radii are
+$$r_\text{pe}=a(1-e)\qquad\text{and}\qquad r_\text{ap}=a(1+e)$$
+
+\bigskip
+The semi-minor axis of the orbit is
+$$b=a\sqrt{|1-e^2|}$$
+
+\bigskip
+The semi-major axis and eccentricity of an elliptic orbit can be stated in terms of known periapsis and apoapsis radii
+$$a=\frac{r_\text{pe}+r_\text{ap}}{2}\qquad\qquad e=\frac{r_\text{pe}^{-1}-r_\text{ap}^{-1}}{r_\text{pe}^{-1}+r_\text{ap}^{-1}}$$
+
+Because hyperbolas don't have physically meaningful apoapses, the semi-major axis and eccentricity can be defined in terms of the entry/exit angle $\theta_\text{hyp}$ and the periapsis radius.
+$$e=\sec(\theta_\text{hyp})\qquad\qquad a=\frac{{r_\text{pe}}}{1-\sec(\theta_\text{hyp})}$$
+
+\pagebreak
+\section{Physical Orbital Parameters from Geometry}\label{Orbital Parameters from Geometry}
+With the geometry of an entire orbit known, physical quantities can be determined.
 
 \bigskip\bigskip
 \subsection{Angular Momentum}\label{sec:Angular Momentum Geometric}
@@ -582,6 +645,29 @@ This equation is not defined for parabolic orbits. Note that in a hyperbolic orb
     h=\sqrt{a\mu(1-e^2)}
 \end{equation}
 
+
+\bigskip\bigskip
+\subsection{Period}\label{Sec:Period Geometric}
+
+The area of a closed ellipse is known from geometry.
+$$\text{Area}=\pi{}ab$$
+
+From Kepler's first law (which was proven in Section \ref{sec:Kepler's First Law}), an equation exists that tells us the area of an orbit as a function of time (Equation \eqref{Kepler's First Law}). If the entire period $T$ is used as the time step, then the area can be found. Because the period is not defined for a hyperbolic orbit, the semi-minor axis will not use an absolute value. However, it turns out that this omission is inconsequential anywho, as the $\sqrt{1-e^2}$ term will cancel out.
+\begin{align*}
+    \text{Area}          & = \frac{h}{2}P                                     \\
+    \pi{}ab              & = \frac{h}{2}P                                     \\
+    \pi{}a^2\sqrt{1-e^2} & = \frac{h}{2}P                                     \\
+    \pi{}a^2\sqrt{1-e^2} & = \frac{\sqrt{a\mu(1-e^2)}}{2}P                    \\
+    T                    & = \frac{2\pi{}a^2\sqrt{1-e^2}}{\sqrt{a\mu(1-e^2)}} \\
+                         & = 2\pi{}a^2\sqrt{\frac{1-e^2}{a\mu(1-e^2)}}        \\
+                         & = \sqrt{\frac{4\pi^2a^4}{a\mu}}                    \\
+\end{align*}
+\begin{equation}\label{Period Geometric}
+    T = \sqrt{\frac{4\pi^2a^3}{\mu}}
+\end{equation}
+
+Hyperbolic and parabolic orbits do not have periods, as they are not closed.
+
 \bigskip\bigskip
 \subsection{Specific Energy}\label{sec:Specific Energy}
 
@@ -598,7 +684,7 @@ Conservation of specific energy was proven earlier, but a more useful expression
 Specific energy is constant, so it will be found at periapsis. First, velocity must be found by setting Equation \eqref{Angular Momentum Physical Definition} (the physical definition of angular momentum, $rv_\perp$) equal to its derived counterpart ($\sqrt{a\mu(1-e^2)}$) from Equation \eqref{Angular Momentum Geometric Definition}. Note that at periapsis, velocity is entirely normal to the radial vector, so $v_\perp=v$, and recall that Equation \eqref{Periapsis Radius Geometric} states $r_\text{pe}=a(1-e)$.
 \begin{align*}
     r_\text{pe}v_\text{pe} & = \sqrt{\mu{}a(1-e^2)}                       \\
-    a|1-e|v_\text{pe}      & = \sqrt{\mu{}a(1-e)(1+e)}                    \\
+    a(1-e)v_\text{pe}      & = \sqrt{\mu{}a(1-e)(1+e)}                    \\
     v_\text{pe}            & = \sqrt{\frac{\mu{}a(1-e)(1+e)}{a^2(1-e)^2}} \\
     v_\text{pe}            & = \sqrt{\frac{\mu{}(1+e)}{a(1-e)}}           \\
 \end{align*}
@@ -613,12 +699,12 @@ Now, specific energy can be found.
                 & = \frac{-\mu}{2a}                                         \\
 \end{align*}
 
-Note that because $a$ is infinite for a parabola, $\varepsilon=0$ for parabolic orbits, Since $a<0$ for hyperbolas, $\varepsilon>0$ in hyperbolic orbits.
+Note that because $a$ is infinite for a parabola (see \ref{sec:Analysis of parabolic trajectories}), $\varepsilon=0$ for parabolic orbits, Since $a<0$ for hyperbolas, $\varepsilon>0$ in hyperbolic orbits.
 \begin{equation}\label{Specific Energy Geometric}
     \varepsilon=\frac{-\mu}{2a}
 \end{equation}
 
-This is valid for \textit{all} orbits. Of note is the fact that eccentricity plays no role in specific energy of an orbit, aside from to determine its sign in extreme cases. This has an interesting ramification for orbital dynamics; since a burn normal to the velocity vector and in plane with the orbit performs no work, it must not change the specific energy of the orbit. While other parameters, such as inclination, can change without the specific energy changing, that requires out-of-plane maneuvers. This implies (correctly) that burning normal to and in plane with your orbit has the effect of changing its eccentricity but not its semi-major axis.
+This is valid for \textit{all} orbits. Of note is the fact that eccentricity plays no role in specific energy of an orbit, aside from to determine its sign in extreme cases. This has an interesting ramification for orbital dynamics; since a burn normal to the velocity vector and in plane with the orbit performs no work, it must not change the specific energy of the orbit. While other parameters, such as inclination, can change without the specific energy changing, that requires out-of-plane maneuvers. This implies (correctly) that burning normal to the velocity has the effect of changing its eccentricity or inclination but not its semi-major axis.
 
 \bigskip\bigskip
 \subsection{Velocity}\label{sec:Velocity}
@@ -637,6 +723,16 @@ The $\frac{-\mu}{a}$ term vanishes in parabolic orbits, showing that in a parabo
 \end{equation}
 
 This equation describes velocity of a satellite as a function of its distance from the orbited body, the semi-major axis of its orbit, and the standard gravitational parameter. Note that it is defined for elliptic, parabolic, and hyperbolic orbits.
+
+For circular orbits where $a=r$, this simplifies to
+\begin{equation}\label{Circular Velocity}
+    v_\text{circ} = \sqrt{\frac{\mu}{r}}
+\end{equation}
+
+Escape is achieved when a satellite is able to approach infinite distance with a real-valued velocity. The minimum such velocity that the satellite can approach is zero. From Equation \eqref{Vis-Viva Equation}, this can only happen if $a$ is infinite. This gives escape velocity as a function of radius to be
+\begin{equation}\label{Escape velocity}
+    v_\text{esc}=\sqrt{\frac{2\mu}{r}}
+\end{equation}
 
 \bigskip\bigskip
 \subsection{Flight Path Angle}
@@ -712,83 +808,44 @@ When taking the inverse cosine, a solution will be lost. On the side of the orbi
 \end{equation}
 
 \bigskip\bigskip
-\subsection{Analysis of Hyperbolic Orbits}\label{sec:Hyperbolic Orbits}
+\subsection{Conclusion}
 
-\begin{figure}[H]
-    \centering
-    \begin{tikzpicture}[>=latex]
-        \def\ecc{1.2}
-        \def\arcRad{1}
-        \def\m{\fpeval{sqrt(\ecc^2-1)}}
-        
-        \draw[scale=1,domain=-2:2,smooth,variable=\t, <-<, thick] plot ({-cosh(\t)+\ecc},{-\m*sinh(\t)});
-        \filldraw[] (0,0) circle (2pt);
-        
-    \end{tikzpicture}
-    \caption{A hyperbolic trajectory}\label{fig:Hyperbolic Trajectory}
-\end{figure}
+Throughout this section, many geometric relationships have been found describing orbits. Most importantly, it has been shown that an orbital trajectory can be described in its plane using only two parameters: the semi-major axis $a$ and the eccentricity $e$. These relationships are summarized here.
 
-An orbit is described by Equation \eqref{Polar Final}. However, for the sake of analysis, this will be transformed into cartesian coordinates. Equation \eqref{Orbit Cartesian} will be rewritten so that there are no complex arguments. Recall that for hyperbolic orbits, $e>1$ and $a<0$.
+\bigskip
+The angular momentum is
+$$h=\sqrt{a\mu(1-e^2)}$$
 
-\begin{align*}
-    \left(\frac{x+ea}{a}\right)^2+\left(\frac{y}{a\sqrt{1-e^2}}\right)^2              & =1 \\
-    \left(\frac{x+ea}{a}\right)^2+\left(\frac{y}{ai\sqrt{e^2-1}}\right)^2             & =1 \\
-    \left(\frac{x+ea}{a}\right)^2+\frac{1}{i^2}\left(\frac{y}{a\sqrt{e^2-1}}\right)^2 & =1 \\
-    \left(\frac{x+ea}{a}\right)^2-\left(\frac{y}{a\sqrt{e^2-1}}\right)^2              & =1 \\
-\end{align*}
+\bigskip
+The specific energy of an orbit is
+$$\varepsilon=\frac{v^2}{2}-\frac{\mu}{r}=\frac{-\mu}{2a}$$
 
-This trajectory can be parameterized. It can be seen that the radius in the $x$ direction is $a$, while the radius in the $y$ direction is $a\sqrt{e^2-1}$. The hyperbola is also translated $-ea$. This can be parameterized using hyperbolic sine and hyperbolic cosine. The semi-major axis will also be factored out to simplify the expression.
-\begin{equation}\label{Hyperbola Parametric}
-    \vv{r}(s)=a\left\langle\cosh(s)-e, \sqrt{e^2-1}\sinh(s)\right\rangle
-\end{equation}
+\bigskip
+The period of an elliptic orbit is
+$$P=\sqrt{\frac{4\pi^2a^3}{\mu}}$$
 
-The parameter $s$ is used instead of the typical $t$ to show that this parameterization does \textit{not} describe the location of a satellite with respect to time, but instead describes the geometry of the trajectory.
+\bigskip
+The velocity at any point in an orbit can be found with
+$$v=\sqrt{\frac{2\mu}{r}-\frac{\mu}{a}}$$
 
-Hyperbolas approach a tangent line in their end behavior. Finding the angle $\theta_\text{hyp}$ of this tangent line to the horizontal will prove useful to analysis of the hyperbola. This will be done by finding the end behavior of the derivative of the parameterization.
+Velocity for circular orbit is
+$$v_\text{circ}=\sqrt{\frac{\mu}{r}}$$
 
-\begin{align*}
-    \vv{r}'(s)&=a\left\langle\sinh(s)-e, \sqrt{e^2-1}\cosh(s)\right\rangle\\
-    \theta_\text{hyp}&=\lim_{s\rightarrow\infty}\arctan\left(\frac{y}{x}\right)\\
-    &=\lim_{s\rightarrow\infty}\arctan\left(\frac{\sqrt{e^2-1}\cosh(s)}{\sinh(s)-e}\right)\\
-    &=\lim_{s\rightarrow\infty}\arctan\left(\sqrt{e^2-1}\frac{\cosh(s)}{\sinh(s)-e}\right)\\
-    &=\arctan\left(\lim_{s\rightarrow\infty}\left(\sqrt{e^2-1}\frac{\cosh(s)}{\sinh(s)-e}\right)\right)\\
-    &=\arctan\left(\sqrt{e^2-1}\lim_{s\rightarrow\infty}\left(\frac{\cosh(s)}{\sinh(s)-e}\right)\right)\\
-    &=\arctan\left(\sqrt{e^2-1}\lim_{s\rightarrow\infty}\left(\frac{\frac{d}{ds}\cosh(s)}{\frac{d}{ds}(\sinh(s)-e)}\right)\right)\\
-    &=\arctan\left(\sqrt{e^2-1}\lim_{s\rightarrow\infty}\left(\frac{\sinh(s)}{\cosh(s)}\right)\right)\\
-    &=\arctan\left(\sqrt{e^2-1}\lim_{s\rightarrow\infty}\left(\tanh(s)\right)\right)\\
-    &=\arctan\left(\sqrt{e^2-1}\right)\\
-\end{align*}
+Escape velocity at any altitude is
+$$v_\text{esc}=\sqrt{\frac{2\mu}{r}}=v_\text{circ}\sqrt{2}$$
 
-The angle from the horizontal (that is to say, a line passing through the periapsis and the planet) to the beginning/end tangent line is
-\begin{equation}\label{Hyperbolic entry/exit angle}
-    \theta_\text{hyp}=\arctan\left(\sqrt{e^2-1}\right)
-\end{equation}
+\bigskip
+While the flight path angle can be found as
+$$\phi=\arccos\left(\sqrt{\frac{a^2(1-e^2)}{r(2a-r)}}\right)$$
 
-\begin{figure}[H]
-    \centering
-    \begin{tikzpicture}[>=latex]
-        \def\ecc{1.2}
-        \def\arcRad{4}
-        \def\m{\fpeval{sqrt(\ecc^2-1)}}
-        \def\thtaHyp{\fpeval{atand(\m)}}
-        
-        \draw[scale=0.1,domain=-5:5,smooth,variable=\t, <-<, gray, thin] plot ({-cosh(\t)+\ecc},{-\m*sinh(\t)});
-        \filldraw[] (0,0) circle (1pt);
-
-        \draw[dashed] (0.5,0.5*\m) -- (-7,-7*\m);
-        \draw[dashed] (0.5,-0.5*\m) -- (-7,7*\m);
-
-        \draw[] (-\arcRad,0) arc (180:180+\thtaHyp:\arcRad) node[midway, right] {$\theta_\text{hyp}$};
-        \draw[] (180-\thtaHyp:1.5*\arcRad) arc (180-\thtaHyp:180+\thtaHyp:1.5*\arcRad) node[midway, left] {$2\theta_\text{hyp}$};
-        
-    \end{tikzpicture}
-    \caption{A hyperbolic trajectory with the tangent lines indicated}\label{Hyperbola with angles}
-\end{figure}
+\bigskip
+The true anomaly can be found in an orbit with
+$$\theta=\arccos\left(\frac{a(1-e^2)-r}{er}\right)$$
 
 \pagebreak
-\section{From Physical Inputs}
+\section{Geometry from Physical Parameters}
 
-A plausible scenario for a spacecraft is that telemetry systems provide a distance from the orbited planet and current velocity (as a vector in $\vec{u}_r$ and $\vec{u}_\theta$, noting that $v_n=0$ at all points), while measured or estimated values of $\mu$ would be known. In this case, equations so far derived in terms of geometric values such as $a$ and $e$ will prove widely useless. Therefore, equations will be derived in terms of these physical values. This can be done in one of two ways. First, everything can be derived using conservation of angular momentum, conservation of energy, and the differential equation from which all else has followed. However, it is substantially easier to, as it were, reverse engineer the geometric formulae. A combination of the two will be used. Throughout this chapter, $v$ will be used to refer to the magnitude of $\vv{v}$, while $v_r$ and $v_\theta$, and $\phi$ may also be used. Note that $\phi$ can be found using the fact that $v_\theta=v\cos(\phi)$ so $\phi=\arccos(v_\theta/v)$, with the sign of $\phi$ being the same as the sign of $v_r$.
+A plausible scenario for a spacecraft is that telemetry systems provide a distance from the orbited planet and current velocity (as a vector in $\vec{u}_r$ and $\vec{u}_\theta$, noting that $v_n=0$ at all points), while measured or estimated values of $\mu$ would be known. In this case, equations so far derived in terms of geometric values such as $a$ and $e$ will prove widely useless until the precise orbit of the spacecraft is known. Therefore, equations will be derived in terms of these physical values to determine geometric parameters of the orbit. Throughout this chapter, $v$ will be used to refer to the magnitude of $\vv{v}$, while $v_r$ and $v_\theta$, and $\phi$ may also be used. Note that $\phi$ can be found using the fact that $v_\theta=v\cos(\phi)$ so $\phi=\arccos(v_\theta/v)$, with the sign of $\phi$ being the same as the sign of $v_r$.
 
 \bigskip\bigskip
 \subsection{Orbit Shape}
@@ -796,7 +853,7 @@ A plausible scenario for a spacecraft is that telemetry systems provide a distan
 Many parameters will depend on the type of orbit that a satellite is in. As such, an easy way of determining this must be found. Section \ref{sec:Specific Energy}, specifically Equation \eqref{Specific Energy Physical} defined specific energy to be
 $$\varepsilon=\frac{1}{2}v^2-\frac{\mu}{r}$$
 
-For an orbit to be hyperbolic, the satellite must be able to approach infinite distance from the orbited body, with the velocity always remaining positive. This means the kinetic energy term must be greater in magnitude than the potential energy term, thus making the specific energy positive. For the orbit to be parabolic, the satellite's velocity will approach zero as its distance approaches infinity. This requires the kinetic and potential energy terms having the same magnitude, making specific energy zero. For a closed orbit, the satellite cannot approach infinite distance without kinetic energy being negative. This means the kinetic term is less than the potential term, making elliptic orbit specific energy negative. This can be summarized with the following statement
+For an orbit to be hyperbolic, the satellite must be able to approach infinite distance from the orbited body, with the velocity always remaining positive. This means the kinetic energy term must be greater in magnitude than the potential energy term, thus making the specific energy positive. For the orbit to be parabolic, the satellite's velocity will approach zero as its distance approaches infinity. This requires the kinetic and potential energy terms to have the same magnitude, making specific energy zero. For a closed orbit, the satellite cannot approach infinite distance without kinetic energy being negative. This means the kinetic term is less than the potential term, making elliptic orbit specific energy negative. This can be summarized with the following statement
 \begin{equation}\label{Orbit Shape Physical}
     \text{Orbit Shape}: \begin{cases}
         \text{Elliptic}   & v<\sqrt{\frac{2\mu}{r}} \\
@@ -817,6 +874,65 @@ This can be used to prove an interesting relationship
 
 While this may not be immediately useful, it is nonetheless intriguing.
 
+\bigskip\bigskip
+\subsection{Semi-Major Axis}\label{sec:SMA in Terms of V,R}
+
+If $v$ and $r$ are known, Equation \eqref{Vis-Viva Equation} can be solved for $a$.
+
+\begin{align*}
+    v                  & = \sqrt{\frac{2\mu}{r}-\frac{\mu}{a}} \\
+    v^2                & = \frac{2\mu}{r}-\frac{\mu}{a}        \\
+    v^2-\frac{2\mu}{r} & =-\frac{\mu}{a}                       \\
+    \frac{\mu}{a}      & = \frac{2\mu}{r}-v^2                  \\
+    \frac{a}{\mu}      & = \frac{1}{\frac{2\mu}{r}-v^2}        \\
+    a                  & = \frac{\mu}{\frac{2\mu}{r}-v^2}      \\
+    a                  & = \frac{\mu r}{2\mu-rv^2}             \\
+\end{align*}
+
+Note that $\frac{2\mu}{r}-v^2=v_\text{esc}^2-v^2$.
+
+\begin{equation}\label{SMA in terms of r, v}
+    a=\frac{\mu r}{2\mu-rv^2}=\frac{\mu}{v_\text{esc}^2-v^2}
+\end{equation}
+
+This shows that the semi-major axis of an orbit is inversely proportional to the difference between the squares of escape velocity and current velocity. This also implies that this difference is conserved throughout an orbit.
+
+\bigskip\bigskip
+\subsection{Eccentricity}\label{sec:Eccentricity in Terms of V,R}
+
+To determine the eccentricity at any point given $v$, $r$, and $\phi$, angular momentum must be used.
+
+\begin{align*}
+    \sqrt{a\mu(1-e^2)}                & =h                                            \\
+    \sqrt{a\mu(1-e^2)}                & =rv\cos(\phi)                                 \\
+    a\mu(1-e^2)                       & =r^2v^2\cos^2(\phi)                           \\
+    \frac{\mu r}{2\mu-rv^2}\mu(1-e^2) & =r^2v^2\cos^2(\phi)                           \\
+    \mu(1-e^2)                        & =r^2v^2\cos^2(\phi)\frac{2\mu-rv^2}{\mu r}    \\
+    1-e^2                             & =r^2v^2\cos^2(\phi)\frac{2\mu-rv^2}{\mu^2r}   \\
+    e^2                               & =1-r^2v^2\cos^2(\phi)\frac{2\mu-rv^2}{\mu^2r} \\
+\end{align*}
+
+\begin{equation}
+    e=\sqrt{1-r^2v^2\cos^2(\phi)\frac{2\mu-rv^2}{\mu^2r}}
+\end{equation}
+
+\bigskip\bigskip
+\subsection{Conclusion}
+
+\bigskip
+An orbit can take one of three shapes. If the velocity is $v<\sqrt{\frac{2\mu}{r}}$, the orbit is elliptic. If $v=\sqrt{\frac{2\mu}{r}}$ the orbit is parabolic. If the velocity is above escape velocity $v>\sqrt{\frac{2\mu}{r}}$, then the trajectory is be hyperbolic.
+
+\bigskip
+The semi-major axis $a$ can be found from measured values
+$$a=\frac{\mu r}{2\mu-rv^2}=\frac{\mu}{v_\text{esc}^2-v^2}$$
+
+\bigskip
+The eccentricity is
+$$e=\sqrt{1-r^2v^2\cos^2(\phi)\frac{2\mu-rv^2}{\mu^2r}}$$
+
+With the two defining geometric parameters able to be determined from instrumentation readings, equations from Sections \ref{sec:Orbit geoemtry} and \ref{Orbital Parameters from Geometry} can be used.
+
+\begin{comment}
 \bigskip\bigskip
 \subsection{Apsis Radii}
 The radii of the apses (periapsis and apoapsis) can be found using a combination of conservation of energy and conservation of angular momentum. The angular momentum at any point is $h=rv_\theta$. Using this, an expression can be found for the radii of the apses (keeping in mind that at periapsis and apoapsis, the velocity is entirely along the horizontal with $\phi=0$).
@@ -1061,9 +1177,185 @@ Unfortunately, the most efficient way of finding the period from physical inputs
       & = 2\pi\mu\sqrt{\frac{r^3}{(2\mu-rv^2)^3}}               \\
       & = 2\pi\mu\left(\frac{r}{2\mu-rv^2}\right)^{3/2}         \\
 \end{align*}
+\end{comment}
 
 \pagebreak
-\section{Orbital Manuevers}
+\section{Analysis of Unbound Trajectories}\label{Special Trajectories}
+
+Hyperbolic and parabolic trajectories present some interesting differences to their elliptic counterparts. These will be examined in this section.
+
+\subsection{Hyperbolic Trajectory}\label{sec:Hyperbolic Orbits}
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[>=latex]
+        \def\ecc{1.2}
+        \def\m{\fpeval{sqrt(\ecc^2-1)}}
+
+        \draw[scale=1,domain=-2:2,smooth,variable=\t, <-<, thick] plot ({-cosh(\t)+\ecc},{-\m*sinh(\t)});
+        \filldraw[] (0,0) circle (2pt);
+
+    \end{tikzpicture}
+    \caption{A hyperbolic trajectory}\label{fig:Hyperbolic Trajectory}
+\end{figure}
+
+An orbit is described by Equation \eqref{Polar Final}. However, for the sake of analysis, this will be transformed into cartesian coordinates. Equation \eqref{Orbit Cartesian} will be rewritten so that there are no complex arguments. Recall that for hyperbolic orbits, $e>1$ and $a<0$.
+
+\begin{align*}
+    \left(\frac{x+ea}{a}\right)^2+\left(\frac{y}{a\sqrt{1-e^2}}\right)^2              & =1 \\
+    \left(\frac{x+ea}{a}\right)^2+\left(\frac{y}{ai\sqrt{e^2-1}}\right)^2             & =1 \\
+    \left(\frac{x+ea}{a}\right)^2+\frac{1}{i^2}\left(\frac{y}{a\sqrt{e^2-1}}\right)^2 & =1 \\
+    \left(\frac{x+ea}{a}\right)^2-\left(\frac{y}{a\sqrt{e^2-1}}\right)^2              & =1 \\
+\end{align*}
+
+This trajectory can be parameterized. It can be seen that the radius in the $x$ direction is $a$, while the radius in the $y$ direction is $a\sqrt{e^2-1}$. The hyperbola is also translated $-ea$. This can be parameterized using hyperbolic sine and hyperbolic cosine. The semi-major axis will also be factored out to simplify the expression.
+\begin{equation}\label{Hyperbola Parametric}
+    \vv{r}(s)=a\left\langle\cosh(s)-e, \sqrt{e^2-1}\sinh(s)\right\rangle
+\end{equation}
+
+The parameter $s$ is used instead of the typical $t$ to show that this parameterization does \textit{not} describe the location of a satellite with respect to time, but instead describes the geometry of the trajectory.
+
+Hyperbolas approach a tangent line in their end behavior. Finding the angle $\theta_\text{hyp}$ of this tangent line to the horizontal will prove useful to analysis of the hyperbola. This will be done by finding the end behavior of the derivative of the parameterization.
+
+\begin{align*}
+    \vv{r}'(s)        & =a\left\langle\sinh(s)-e, \sqrt{e^2-1}\cosh(s)\right\rangle                                                                  \\
+    \theta_\text{hyp} & =\lim_{s\rightarrow\infty}\arctan\left(\frac{y}{x}\right)                                                                    \\
+                      & =\lim_{s\rightarrow\infty}\arctan\left(\frac{\sqrt{e^2-1}\cosh(s)}{\sinh(s)-e}\right)                                        \\
+                      & =\lim_{s\rightarrow\infty}\arctan\left(\sqrt{e^2-1}\frac{\cosh(s)}{\sinh(s)-e}\right)                                        \\
+                      & =\arctan\left(\lim_{s\rightarrow\infty}\left(\sqrt{e^2-1}\frac{\cosh(s)}{\sinh(s)-e}\right)\right)                           \\
+                      & =\arctan\left(\sqrt{e^2-1}\lim_{s\rightarrow\infty}\left(\frac{\cosh(s)}{\sinh(s)-e}\right)\right)                           \\
+                      & =\arctan\left(\sqrt{e^2-1}\lim_{s\rightarrow\infty}\left(\frac{\frac{d}{ds}\cosh(s)}{\frac{d}{ds}(\sinh(s)-e)}\right)\right) \\
+                      & =\arctan\left(\sqrt{e^2-1}\lim_{s\rightarrow\infty}\left(\frac{\sinh(s)}{\cosh(s)}\right)\right)                             \\
+                      & =\arctan\left(\sqrt{e^2-1}\lim_{s\rightarrow\infty}\left(\tanh(s)\right)\right)                                              \\
+                      & =\arctan\left(\sqrt{e^2-1}\right)                                                                                            \\
+\end{align*}
+
+The angle from the horizontal (that is to say, a line passing through the periapsis and the planet) to the beginning/end tangent line is
+\begin{equation}\label{Hyperbolic entry/exit angle}
+    \theta_\text{hyp}=\arctan\left(\sqrt{e^2-1}\right)
+\end{equation}
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[>=latex]
+        \def\ecc{1.2}
+        \def\arcRad{3}
+        \def\m{\fpeval{sqrt(\ecc^2-1)}}
+        \def\thtaHyp{\fpeval{atand(\m)}}
+
+        \draw[scale=0.1,domain=-4.5:4.5,smooth,variable=\t, <-<, gray, thin] plot ({-cosh(\t)+\ecc},{-\m*sinh(\t)});
+        \filldraw[] (0,0) circle (1pt);
+
+        \draw[dashed] (0.5,0.5*\m) -- (-5,-5*\m);
+        \draw[dashed] (0.5,-0.5*\m) -- (-5,5*\m);
+
+        \draw[] (-\arcRad,0) arc (180:180+\thtaHyp:\arcRad) node[midway, right] {$\theta_\text{hyp}$};
+        \draw[] (180-\thtaHyp:1.5*\arcRad) arc (180-\thtaHyp:180+\thtaHyp:1.5*\arcRad) node[midway, left] {$2\theta_\text{hyp}$};
+
+    \end{tikzpicture}
+    \caption{A hyperbolic trajectory with the tangent lines indicated}\label{Hyperbola with angles}
+\end{figure}
+
+\subsubsection{Hyperbola Eccentricity in Terms of \texorpdfstring{$\theta_\text{hyp}$}{Theta Hyperbolic}}
+
+From equation \eqref{Hyperbolic entry/exit angle}, the eccentricity can be isolated.
+\begin{align*}
+    \theta_\text{hyp}       & =\arctan\left(\sqrt{e^2-1}\right) \\
+    \tan(\theta_\text{hyp}) & =\sqrt{e^2-1}                     \\
+    e^2-1                   & =\tan^2(\theta_\text{hyp})        \\
+    e^2                     & =1+\tan^2(\theta_\text{hyp})      \\
+    e^2                     & =\sec^2(\theta_\text{hyp})        \\
+\end{align*}
+\begin{equation}\label{Hyperbola Eccentricity}
+    e=\sec(\theta_\text{hyp})
+\end{equation}
+
+\subsubsection{Hyperbola Semi-Major Axis in Terms of Periapsis}
+
+Equations \eqref{Periapsis Radius Geometric} and \eqref{Hyperbola Eccentricity} can be combined to isolate the semi-major axis in terms of the periapsis radius.
+
+\begin{align*}
+    r_\text{pe} & =a(1-e)                       \\
+    r_\text{pe} & =a(1-\sec(\theta_\text{hyp})) \\
+\end{align*}
+\begin{equation}\label{Hyperbola SMA}
+    a=\frac{{r_\text{pe}}}{1-\sec(\theta_\text{hyp})}
+\end{equation}
+
+\bigskip\bigskip
+\subsection{Parabolic Trajectories}\label{sec:Analysis of parabolic trajectories}
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[>=latex]
+
+        \draw[scale=1,domain=-2:2,smooth,variable=\t, >->, thick] plot ({-(\t)^2+1},\t);
+        \filldraw[] (0,0) circle (2pt);
+
+    \end{tikzpicture}
+    \caption{A parabolic trajectory}\label{fig:Parabolic Trajectory}
+\end{figure}
+
+The eccentricity of a parabola is, by definition, $e=1$. It is also proven in Section \ref{sec:Kepler's First Law} that when $e=1$ the orbit equation creates a parabola. For the numerator of the orbit equation $r=\frac{a(1-e^2)}{1+e\cos(\theta)}$ to be nonzero, $a$ must be infinite. The velocity in a parabolic orbit can be investigated with Equation \eqref{Vis-Viva Equation}.
+
+\begin{align*}
+    v & =\sqrt{\frac{2\mu}{r}-\frac{\mu}{a}}                                                     \\
+      & =\sqrt{\frac{2\mu}{r}-\lim_{a\rightarrow\infty}\left(\frac{\mu}{a}\right)}               \\
+      & =\sqrt{\frac{2\mu}{r}-\cancelto{0}{\lim_{a\rightarrow\infty}\left(\frac{\mu}{a}\right)}} \\
+\end{align*}
+\begin{equation}
+    v_\text{parabola}=v_\text{esc}=\sqrt{\frac{2\mu}{r}}
+\end{equation}
+
+Since a parabola has a determined unique shape, there is only one parameter for it; its size. The defining parameter for a parabolic trajectory is either the periapsis $r_\text{pe}$ or the semi-latus rectum $p$, which can be related using Equation \eqref{Polar with p, e} keeping in mind that at periapsis the cosine will evaluate to 1
+\begin{align*}
+    r           & =\frac{p}{1+e\cos(\theta-\omega)} \\
+    r_\text{pe} & =\frac{p}{1+\cos(0)}              \\
+    r_\text{pe} & =\frac{p}{2}                      \\
+\end{align*}
+\begin{equation}
+    p_\text{parabola}=2r_\text{pe,parabola}
+\end{equation}
+
+To determine the periapsis of a parabolic trajectory from a measured velocity, angular momentum must be used
+
+\begin{align*}
+    h_\text{pe}            & = h                                                   \\
+    r_\text{pe}v_\text{pe} & =rv\cos(\phi)                                         \\
+    r_\text{pe}            & =\frac{rv\cos(\phi)}{v_\text{pe}}                     \\
+                           & =\frac{rv\cos(\phi)}{\sqrt{\frac{2\mu}{r_\text{pe}}}} \\
+    r_\text{pe}^2          & =\frac{r^2v^2\cos^2(\phi)}{\frac{2\mu}{r_\text{pe}}}  \\
+    r_\text{pe}^2          & =\frac{r_\text{pe}r^2v^2\cos^2(\phi)}{2\mu}           \\
+\end{align*}
+\begin{equation}\label{Periapsis Radius Parabola}
+    r_\text{pe,parabola}=\frac{r^2v^2\cos^2(\phi)}{2\mu}
+\end{equation}
+
+\bigskip\bigskip
+\subsection{Conclusion}
+
+\bigskip
+Hyperbolic orbits approach a linear trajectory with an angle of
+$$\theta_\text{hyp}=\arctan\left(\sqrt{e^2-1}\right)$$
+
+\bigskip
+Because hyperbolas don't have physically meaningful apoapses, the semi-major axis and eccentricity can be defined in terms of the entry/exit angle $\theta_\text{hyp}$ and the periapsis radius $r_\text{pe}$.
+$$e=\sec(\theta_\text{hyp})\qquad\qquad a=\frac{{r_\text{pe}}}{1-\sec(\theta_\text{hyp})}$$
+
+\bigskip
+Parabolic trajectories occur at exactly escape velocity, meaning that at all points
+$$v=\sqrt{\frac{2\mu}{r}}$$
+
+\bigskip
+In a parabolic trajectory, the semi-latus rectum and periapsis are related by
+$$p_\text{parabola}=2r_\text{pe,parabola}$$
+
+\bigskip
+From telemetry data, the periapsis radius can be found with
+$$r_\text{pe,parabola}=\frac{r^2v^2\cos^2(\phi)}{2\mu}$$
+
+\pagebreak
+\section{Orbital Manuevers Basics}
 
 Throughout this section, burns are assumed to be pseudo-impulsive. That is to say, they occur over an infinitesimal amount of distance and time. The $n$ vectors can change throughout the burn (and in fact, they do) with change in direction of velocity. It is assumed for ease of analysis that the spacecraft's thrust vector shifts to keep up with the $m$ vectors. It is important to remember that the $m$ vectors are based on velocity, not on position. That is to say, $\hat{m}_r$ does not necessarily point outward from the planet, but rather it points perpendicular to the velocity vector and in plane with the orbit. Only at the apses does $\hat{m}_v$ point perpendicular to the displacement from the planet. Similarly, only at the apses does $\hat{m}_r$ point radially outward from the planet.
 
@@ -1114,13 +1406,13 @@ First, conservation of energy will be applied. For mass to be conserved, $m_e=-d
 \end{align*}
 
 \begin{equation}\label{Rocket Equation Ve}
-    \Delta{}v=v_e\ln(\frac{m_1}{m_2})
+    \Delta{}v=v_e\ln\left(\frac{m_1}{m_2}\right)
 \end{equation}
 
 This equation has another (equivalent) form. Because exhaust velocity can come in many different units, making it hard to compare between spacecraft. Instead of the exhaust velocity, a specific impulse $I_sp$ is defined. The specific impulse is the exhaust velocity divided by Earth's standard gravity at sea level. This allows the units to cancel out to seconds. $I_{sp}=\frac{v_e}{g_0}\rightarrow{}v_e=I_{sp}g_0$
 
 \begin{equation}\label{Rocket Equation ISP}
-    \Delta{}v=I_{sp}g_0\ln(\frac{m_1}{m_2})
+    \Delta{}v=I_{sp}g_0\ln\left(\frac{m_1}{m_2}\right)
 \end{equation}
 
 Note that $\Delta v$ is not actually the change in velocity; a spacecraft can burn for a change in velocity of some arbitrary amount $\delta$ in one direction, then perform a burn of equal magnitude in a perpendicular direction. The magnitude of the change in velocity of the spacecraft is $\sqrt{2}\delta$, while the change in magnitude of velocity would depend on the initial velocity vector of the spacecraft. Instead, $\Delta v$ can be treated as a quantity that a spacecraft expends as it performs manuevers. For the rest of this chapter, the uppercase $\Delta V$ will be used to make this distinction, with the differential form $dV$ being used as well. Keep in mind that, while $dV$ and $\Delta V$ have units of velocity, they are \textit{not} necessarily equal to differential or absolute changes in the actual magnitude of velocity. When $dV$ is integrated, the integration bounds will be $V$- think of this as the currency which is being used, or a means of measuring fuel requirements for maneuvers.
@@ -1215,28 +1507,30 @@ From Equation \eqref{True Anomoly Geometric}, an increase in eccentricity will i
 
 This means that if the spacecraft is heading towards periapsis, a radial out burn (by decreasing eccentricity) will bring the periapsis up and closer to the spacecraft's true anomaly. When the spacecraft is heading towards apoapsis, a radial out burn will (by increasing efficiency) further raise the apoapsis while increasing the angle to periapsis and therefore decreasing the angle to apoapsis.
 %TODO: UNCOMMENT
-%\begin{figure}[H]
-%    \centering
-%    \begin{tikzpicture}[>=latex]
-%        \def\SMA{2}
-%        \def\vO{7}
-%        \def\phiO{0}
-%        \def\X{\fpeval{-sqrt(3)}}
-%        \def\Y{1}
-%        \def\posR{\fpeval{sqrt((\X)^2+\Y^2)}}
-%        \fill(0,0) circle (2pt);
-%        \foreach \dV in {1,2,3,4,5,6,7,8,9,10}
-%        {
-%        \definecolor{orbCol}{gray}{\fpeval{1-\dV/20}}
-%        \def\ecc{\fpeval{sqrt(1-(cos(\dV/\vO))^2*(1-tan(\phiO)*tan(\dV/\vO))^2)}}
-%        \def\omeg{\fpeval{atan(\Y/\X)-acos((\SMA*(1-\ecc^2)-\posR)/(\ecc*\posR))}}
-%        \def\slr{\fpeval{\SMA*(1-\ecc^2)}}
-%        \draw[domain=0:2*pi,samples=300, orbCol] plot ({deg(\x+\omeg)-180}:{(\slr)/(1+\ecc*cos(\x r))});
-%        \fill[blue] (\X,\Y) circle (3pt);
-%        }
-%    \end{tikzpicture}
-%    \caption{A counterclockwise orbit with progressively-labeled burns in the $\hat{u}_r$ direction. The darker the orbit, the more $\Delta V$ has been expended. The beginning orbit is the near-circular one. The spacecraft is the blue point. If the spacecraft were instead orbiting clockwise, then the lighter shades would indicate more $\Delta V$ expenditure with the darker orbit being the original orbit}
-%\end{figure}
+\begin{comment}
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[>=latex]
+        \def\SMA{2}
+        \def\vO{7}
+        \def\phiO{0}
+        \def\X{\fpeval{-sqrt(3)}}
+        \def\Y{1}
+        \def\posR{\fpeval{sqrt((\X)^2+\Y^2)}}
+        \fill(0,0) circle (2pt);
+        \foreach \dV in {1,2,3,4,5,6,7,8,9,10}
+        {
+        \definecolor{orbCol}{gray}{\fpeval{1-\dV/20}}
+        \def\ecc{\fpeval{sqrt(1-(cos(\dV/\vO))^2*(1-tan(\phiO)*tan(\dV/\vO))^2)}}
+        \def\omeg{\fpeval{atan(\Y/\X)-acos((\SMA*(1-\ecc^2)-\posR)/(\ecc*\posR))}}
+        \def\slr{\fpeval{\SMA*(1-\ecc^2)}}
+        \draw[domain=0:2*pi,samples=300, orbCol] plot ({deg(\x+\omeg)-180}:{(\slr)/(1+\ecc*cos(\x r))});
+        \fill[blue] (\X,\Y) circle (3pt);
+        }
+    \end{tikzpicture}
+    \caption{A counterclockwise orbit with progressively-labeled burns in the $\hat{u}_r$ direction. The darker the orbit, the more $\Delta V$ has been expended. The beginning orbit is the near-circular one. The spacecraft is the blue point. If the spacecraft were instead orbiting clockwise, then the lighter shades would indicate more $\Delta V$ expenditure with the darker orbit being the original orbit}
+\end{figure}
+\end{comment}
 
 Conclusion: any burn in the $\hat{m}_r$ direction raises apsis that the spacecraft is approaching while lowering the apsis that the spacecraft is coming from. The orbit "pivots" about the spacecraft, with the eccentricity changing and the semi-major axis remaining the same. The increase in one apsis is equal to the decrease in the other apsis (see Figure \ref{fig:Orbit Diagram}). The true anomaly of whichever apsis the spacecraft is heading towards will be brought closer to the spacecraft. Because the plane of the orbit is unchanged, $\Omega$ and $i$ are kept the same with radial manuevers. To keep the spacecraft where it is, $\omega+\theta$ is also not changed.
 
@@ -1371,12 +1665,24 @@ However, a more simple means of finding $\Delta a$ can be found using Equation \
 
 Conclusion: burns in the $\hat{m}_v$ direction increase the semi-major axis of the orbit. Because the point that the spacecraft occupies must remain fixed, the opposite side of the orbit exhibits the most change in radius.
 
+\subsection{Conclusion}
+
+\bigskip
+The rocket equation describes the change in velocity (or, more accurately, the magnitude of the vector change in velocity) due to the expendature of propellant in a spacecraft. Because all maneuvers require changing velocity, this $\Delta V$ is treated as a means of measuring mission requirements, almost like a fuel requirement.
+$$\Delta V = I_{sp}g_0\ln\left(\frac{m_1}{m_2}\right)$$
+
+\bigskip
+If a spacecraft burns radially outward (that is to say, perpendicular from and in plane with its velocity and generally away from the planet), this will have the effect of raising the next apsis and lowering the opposite one, while bringing the next apsis closer to the spacecraft's position. This will change the eccentricity of the orbit.
+
+Out-of-plane burns change the inclination of an orbit about the point at which the maneuver is performed. Because the plane of the orbit is defined by the velocity vector and the radial vector, knowledge of the direction of the velocity vector and radial vector allow the plane of the orbit to be known.
+
+Burns along the velocity vector increase the semi-major axis by raising the opposite side of the orbit, while burns opposite the velocity vector have the opposite effect.
+
 \pagebreak
 \section{Practical Maneuvers}
 
 \bigskip\bigskip
 \subsection{Inclination Change}
-%note: https://en.wikipedia.org/wiki/Orbital_inclination_change
 
 In Section \ref{sec:Mn Manuever}, maneuvers were done at a constant angle to the velocity vector. However, it is more efficient to transfer to the desired orbit directly by finding the vector difference between the old velocity and the desired velocity. To maximize the effect of such a manuever, it should be done at either the ascending or descending node (such that $\Delta j=\Delta i$).
 
@@ -1418,7 +1724,7 @@ This gives us the $\Delta V$ required for an inclination change maneuver
     \Delta V= 2\sin\left(\frac{\Delta i}{2}\right)
 \end{equation}
 
-This shows the minimum required $\Delta V$ for an orbital inclination change.
+This shows the minimum required $\Delta V$ for an orbital inclination change. If the inclination change occurs at any point other than the ascending or descending node, it will require a greater $\Delta V$ and will also have the effect of chaning the longitude of ascending node $\Omega$ (and therefore moving the ascending and descending nodes). In-plane maneuvers will change neither the inclination nor the longitude of ascending node.
 
 \bigskip\bigskip
 \subsection{Hohmann Transfer}
@@ -1535,8 +1841,8 @@ By plotting $\Delta V$ against the ratio of the final orbit to the initial orbit
         \draw[->] (0,0)--+(10,0) node[midway, below] {$r_2/r_1$};
         \draw[->] (0,0)--+(0,3) node[midway, left] {$\Delta V$};
 
-        \draw[domain=1:10, ->] plot (\x, {5*(sqrt(2*\x/(\R*(1+\x)))+sqrt(1/(\x*\R))-sqrt(2/(\R*\x*(\x+1)))-sqrt(1/\R))});
-        \draw[domain=0.4:1, <-] plot (\x, {-5*(sqrt(2*\x/(\R*(1+\x)))+sqrt(1/(\x*\R))-sqrt(2/(\R*\x*(\x+1)))-sqrt(1/\R))});
+        \draw[domain=1:10, smooth, ->] plot (\x, {5*(sqrt(2*\x/(\R*(1+\x)))+sqrt(1/(\x*\R))-sqrt(2/(\R*\x*(\x+1)))-sqrt(1/\R))});
+        \draw[domain=0.4:1, smooth, <-] plot (\x, {-5*(sqrt(2*\x/(\R*(1+\x)))+sqrt(1/(\x*\R))-sqrt(2/(\R*\x*(\x+1)))-sqrt(1/\R))});
         \draw[gray , dashed] (1,0) -- +(0,3) node[midway, sloped, below] {$r_2=r_1$};
 
     \end{tikzpicture}
@@ -1552,8 +1858,8 @@ If instead the ratio $r_2/r_1$ is held constant, then the relationship between $
         \draw[->] (0,0)--+(10,0) node[midway, below] {$r_1$};
         \draw[->] (0,0)--+(0,3) node[midway, left] {$\Delta V$};
 
-        \draw[domain=1:10, ->] plot (\x, {5*(sqrt(2*\alph/(\x*(1+\alph)))+sqrt(1/(\alph*\x))-sqrt(2/(\x*\alph*(\alph+1)))-sqrt(1/\x))});
-        \draw[domain=0.25:1, <-] plot (\x, {5*(sqrt(2*\alph/(\x*(1+\alph)))+sqrt(1/(\alph*\x))-sqrt(2/(\x*\alph*(\alph+1)))-sqrt(1/\x))});
+        \draw[domain=1:10, smooth, ->] plot (\x, {5*(sqrt(2*\alph/(\x*(1+\alph)))+sqrt(1/(\alph*\x))-sqrt(2/(\x*\alph*(\alph+1)))-sqrt(1/\x))});
+        \draw[domain=0.25:1, smooth, <-] plot (\x, {5*(sqrt(2*\alph/(\x*(1+\alph)))+sqrt(1/(\alph*\x))-sqrt(2/(\x*\alph*(\alph+1)))-sqrt(1/\x))});
 
     \end{tikzpicture}
     \caption{Plot of $\Delta V$ vs $r_1$ with $r_1/r_2$ held constant}\label{fig:Hohmann Delta V alpha const}
@@ -1574,6 +1880,38 @@ In the above figure, $\Delta V$ is represented by the colors, while the axes cor
 
 It may at times be the case that the Hohmann Transfer is simply too slow for some applications. If the transfer is from a low orbit to a higher one, then the apoapsis of the transfer orbit can simply be raised higher than the destination orbit.
 
+
+\begin{figure}[H]
+    \centering
+    \def\Rone{0.75}
+    \def\Rtwo{2.5}
+    \def\transSMA{\fpeval{2*\rTwo}}
+    \def\ctrX{\fpeval{\Rone-\transSMA}}
+    \def\trE{\fpeval{\Rtwo/\transSMA - 1}}
+    \def\transSmA{\fpeval{\transSMA*sqrt(1-(\trE)^2)}}
+    \def\dV{1.25}
+    \definecolor{purp}{rgb}{.8,0,.8}
+    \begin{tikzpicture}[>=latex]
+        \draw[thin, dotted, blue] (0,0) ellipse ({\Rone} and {\Rone});
+        \draw[blue, thick,>-] (-\Rone,0) arc (180:360:{\Rone} and {\Rone}) node[right] {$r_1$};
+
+
+%        \draw[thin, dotted, purp] (\ctrX,0) ellipse ({\transSMA} and {\transSmA});
+%        \draw[purp, thick] (\Rone,0) arc (0:180:{\transSMA} and {\transSmA});
+
+        \draw[thin, dotted,red] (0,0) ellipse ({\Rtwo} and {\Rtwo});
+        \draw[red, thick,->] (-\Rtwo,0) arc (180:360:{\Rtwo} and {\Rtwo}) node[right] {$r_2$};;
+
+        \filldraw[lightgray] (0,0) circle (2pt);
+
+        \draw[->] (\Rone,0)--+(0,\dV) node[above] {$\Delta v_1$};
+        \draw[->] (-\Rtwo,0)--+(0,-\dV) node[below] {$\Delta v_2$};
+
+    \end{tikzpicture}
+    \caption{A Hohmann Transfer from a low orbit to a high orbit (left) and from a high orbit to a lower one (right)}\label{fig:Expedited Transfer}
+\end{figure}
+
+
 %TODO
 
 \bigskip\bigskip
@@ -1586,7 +1924,7 @@ A bi-elliptic transfer is another means of transferring from one circular orbit 
 \bigskip\bigskip
 \subsection{Combined Manuever}
 
-Any single-burn maneuver can be done most efficiently by burning such that $\Delta V$ takes the velocity from some original velocity $\vv{v}_1$ to some desired velocity $\vv{v}_2$. In all probability, the velocity vector of a satellite will be known by measurement. If instead the geometric parameters of the orbit are known, Equations \eqref{Vis-Viva Equation}, \eqref{Flight Path Angle} can be used to determine the velocity vector in the plane of the orbit. The desired velocity vector can be found with the same equations, and using basic trigonometry changes in inclination can be accounted for as well. For any in-plane maneuver, the calculation is relatively simple. We will assume that the original velocity $v_1$ and the new velocity $v_2$ are both known, the change in flight path angle $\Delta \phi$ is known, and the angle between the old and new orbital planes $\Delta j$ is known. Using this, the total $\Delta V$ required can be calculated. The law of cosines can be used to simplify this calculation, however for ease of following it will not be used.
+Any single-burn maneuver can be done most efficiently by burning such that $\Delta V$ takes the velocity from some original velocity $\vv{v}_1$ to some desired velocity $\vv{v}_2$. In all probability, the velocity vector of a satellite will be known by measurement. If instead the geometric parameters of the orbit are known, Equations \eqref{Vis-Viva Equation} and \eqref{Flight Path Angle} can be used to determine the velocity vector in the plane of the orbit. The desired velocity vector can be found with the same equations, and using basic trigonometry changes in inclination can be accounted for as well. For maneuvers in which the location of the ascending and descending nodes changes, some geometry must be applied. For any maneuver where the only change in inclination occurs at the ascending or descending node, the calculation is relatively simple. We will assume that the original velocity $v_1$ and the new velocity $v_2$ are both known, the change in flight path angle $\Delta \phi$ is known, and the angle between the old and new orbital planes $\Delta j$ is known. Using this, the total $\Delta V$ required can be calculated. The law of cosines can be used to simplify this calculation, however for ease of following it will not be used.
 
 \begin{align*}
     \Delta V & = |\vv{v}_2-\vv{v}_1|                                                                                                                                           \\
@@ -1635,14 +1973,14 @@ For the sake of this exploration, a gravity assist from Jupiter in a solar orbit
 
         \coordinate (p1) at (-{cosh(\endT)+\ecc},{-\m*sinh(\endT)}) {};
         \coordinate (p2) at (-{cosh(\endT)+\ecc},{\m*sinh(\endT)}) {};
-        
+
         \draw[scale=1,domain=-\endT:\endT,smooth,variable=\t, thin, densely dotted] plot ({-cosh(\t)+\ecc},{-\m*sinh(\t)});
         \filldraw[brown] (0,0) circle (2pt);
-        
+
         \filldraw[gray] (p1) circle (1pt);
         \filldraw[gray] (\ecc-1,0) circle (1pt);
         \filldraw[gray] (p2) circle (1pt);
-        
+
         \draw[gray, ->] (p1) node[below right] {$v_1$} -- +(0.5,0.5*\m);
         \draw[gray, ->] (\ecc-1,0) -- +(0,1) node[right] {$v_2>v_1$};
         \draw[gray, ->] (p2) node[above right] {$v_3=v_1$} -- +(-0.5,0.5*\m);
@@ -1662,13 +2000,13 @@ Figure \ref{fig:Jupiter Flyby} can be redrawn to include velocities relative to 
         \def\m{\fpeval{sqrt(\ecc^2-1)}}
         \def\endT{2}
         \def\vJ{1.5}
-        
+
         \coordinate (p1) at (-{cosh(\endT)+\ecc},{-\m*sinh(\endT)}) {};
         \coordinate (p2) at (-{cosh(\endT)+\ecc},{\m*sinh(\endT)}) {};
         \coordinate (vJup) at (-\vJ,0) {};
 
         \draw[scale=1,domain=-\endT:\endT,smooth,variable=\t, thin, densely dotted] plot ({-cosh(\t)+\ecc},{-\m*sinh(\t)});
-        
+
 
         \draw[red, ->] (0,0) -- (vJup) node[left] {$v_{\text{Jupiter},s}$};
         \draw[brown, ->] (p1) -- +(0.5,0.5*\m) node[midway, below right] {$v_{\text{enter},j}$};
@@ -1676,7 +2014,7 @@ Figure \ref{fig:Jupiter Flyby} can be redrawn to include velocities relative to 
 
         \draw[lightgray, thin, densely dashed, -{Latex[open]}] (p1)++(0.5,0.5*\m)--+(vJup) node[midway, above] {$v_{\text{Jupiter},s}$};
         \draw[lightgray, thin, densely dashed, -{Latex[open]}] (p2)++(-0.5,0.5*\m)--+(vJup) node[midway, above] {$v_{\text{Jupiter},s}$};
-        
+
         \draw[red, ->] (p1) -- + (0.5-\vJ,0.5*\m) node[midway, below] {$v_{\text{enter},s}$};
         \draw[red, ->] (p2) --+ (-0.5-\vJ,0.5*\m) node[midway, below] {$v_{\text{exit},s}$};
 
@@ -1709,13 +2047,13 @@ To illustrate the varying effects that gravity assists can have, a few possible 
 
         \draw[scale=1,domain=-\endT:\endT,smooth,variable=\t, thin, densely dotted] plot ({cosh(\t)-\ecc},{-\m*sinh(\t)});
 
-        
+
         \draw[brown, ->] (p1) -- +(-0.5,0.5*\m) node[midway, above right] {$v_{\text{enter},j}$};
         \draw[brown, ->] (p2) -- +(0.5,0.5*\m) node[midway, below right] {$v_{\text{exit},j}$};
 
         \draw[lightgray, thin, densely dashed, -{Latex[open]}] (p1)++(-0.5,0.5*\m)--+(vJup) node[midway, above] {$v_{\text{Jupiter},s}$};
         \draw[lightgray, thin, densely dashed, -{Latex[open]}] (p2)++(0.5,0.5*\m)--+(vJup) node[midway, above] {$v_{\text{Jupiter},s}$};
-        
+
         \draw[red, ->] (p1) -- + (-0.5-\vJ,0.5*\m) node[midway, below] {$v_{\text{enter},s}$};
         \draw[red, ->] (p2) --+ (0.5-\vJ,0.5*\m) node[midway, below] {$v_{\text{exit},s}$};
 
@@ -1737,7 +2075,7 @@ From Figures \ref{fig:Jupiter Flyby Rel Velocities} and \ref{fig:Gravity Assist 
         \def\m{\fpeval{sqrt(\ecc^2-1)}}
         \def\endT{2}
         \def\vJ{2}
-        
+
         \coordinate (p1) at ({-\m*sinh(\endT)},-{cosh(\endT)+\ecc}) {};
         \coordinate (p2) at ({\m*sinh(\endT)}, -{cosh(\endT)+\ecc}) {};
         \coordinate (vJup) at (-\vJ,0) {};
@@ -1750,7 +2088,7 @@ From Figures \ref{fig:Jupiter Flyby Rel Velocities} and \ref{fig:Gravity Assist 
 
         \draw[lightgray, thin, densely dashed, -{Latex[open]}] (p1)++(0.5*\m, 0.5)--+(vJup) node[midway, above] {$v_{\text{Jupiter},s}$};
         \draw[lightgray, thin, densely dashed, -{Latex[open]}] (p2)++(0.5*\m, -0.5)--+(vJup) node[midway, below] {$v_{\text{Jupiter},s}$};
-        
+
         \draw[red, ->] (p1) -- + (0.5*\m-\vJ,0.5) node[midway, below] {$v_{\text{enter},s}$};
         \draw[red, ->] (p2) --+ (0.5*\m-\vJ,-0.5) node[midway, above] {$v_{\text{exit},s}$};
 
@@ -1768,19 +2106,19 @@ In Figures \ref{fig:Jupiter Flyby}, \ref{fig:Jupiter Flyby Rel Velocities}, \ref
 
 \subsubsection{Mathematical Analysis of Gravity Assists}
 
-Because a hyperbolic trajectory occurs above escape velocity (See Equation \eqref{Orbit Shape Physical}), the speed that the spacecraft approaches can be determined. 
+Because a hyperbolic trajectory occurs above escape velocity (See Equation \eqref{Orbit Shape Physical}), the speed that the spacecraft approaches (relative to the planet) in the limit can be determined.
 
 \begin{align*}
-    v_\infty &= \lim_{r\rightarrow\infty}v\\
-    &= \lim_{r\rightarrow\infty}\left(\sqrt{\frac{2\mu}{r}-\frac{\mu}{a}}\right)\\
-    &= \sqrt{\frac{\mu}{-a}}
+    v_\infty & = \lim_{r\rightarrow\infty}v                                                \\
+             & = \lim_{r\rightarrow\infty}\left(\sqrt{\frac{2\mu}{r}-\frac{\mu}{a}}\right) \\
+             & = \sqrt{\frac{\mu}{-a}}
 \end{align*}
 
 Using this, the semi-major axis can be found
 \begin{align*}
-    v_\infty &= \sqrt{\frac{\mu}{-a}}\\
-    v_\infty^2 &= \frac{\mu}{-a}\\
-    a &= \frac{-\mu}{v_\infty^2}\\
+    v_\infty   & = \sqrt{\frac{\mu}{-a}}   \\
+    v_\infty^2 & = \frac{\mu}{-a}          \\
+    a          & = \frac{-\mu}{v_\infty^2} \\
 \end{align*}
 
 The semi-major axis is uniquely determined by the limiting velocity of the spacecraft, and is unaffected by the entry/exit angle $\theta_\text{hyp}$. A more useful way of phrasing this is that the entry/exit angle is unaffected by the entry velocity.
@@ -1788,10 +2126,10 @@ The semi-major axis is uniquely determined by the limiting velocity of the space
 Because $a$ is not determined by the chosen hyperbolic trajectory, from Equation \eqref{Periapsis Radius Geometric} the eccentricity can be determined by the periapsis radius. Solving Equation \eqref{Periapsis Radius Geometric} for the eccentricity,
 
 \begin{align*}
-    r_\text{pe}&=a(1-e)\\
-    r_\text{pe}&=\frac{-\mu}{v_\infty^2}(1-e)\\
-    r_\text{pe}&=\frac{\mu}{v_\infty^2}(e-1)\\
-    \frac{r_\text{pe}v_\infty^2}{\mu}&=e-1\\
+    r_\text{pe}                       & =a(1-e)                       \\
+    r_\text{pe}                       & =\frac{-\mu}{v_\infty^2}(1-e) \\
+    r_\text{pe}                       & =\frac{\mu}{v_\infty^2}(e-1)  \\
+    \frac{r_\text{pe}v_\infty^2}{\mu} & =e-1                          \\
 \end{align*}
 \begin{equation}\label{Hyperbolic Flyby Eccentricity}
     e=\frac{r_\text{pe}v_\infty^2}{\mu}+1
@@ -1800,8 +2138,8 @@ Because $a$ is not determined by the chosen hyperbolic trajectory, from Equation
 Recall from Equation \eqref{Hyperbolic entry/exit angle} that $\theta_\text{hyp}$ is determined uniquely by $e$.
 
 \begin{align*}
-    \theta_\text{hyp}&=\arctan\left(\sqrt{e^2-1}\right)\\
-    &=\arctan\left(\sqrt{\left(\frac{r_\text{pe}v_\infty^2}{\mu}+1\right)^2-1}\right)\\
+    \theta_\text{hyp} & =\arctan\left(\sqrt{e^2-1}\right)                                                \\
+                      & =\arctan\left(\sqrt{\left(\frac{r_\text{pe}v_\infty^2}{\mu}+1\right)^2-1}\right) \\
 \end{align*}
 
 \begin{equation}\label{Hyperbola angle in terms of pe}
@@ -1813,15 +2151,15 @@ With Equation \eqref{Hyperbola angle in terms of pe}, we now have the tools to d
 The net change in a spacecraft's velocity vector relative to the sun can be expressed as follows. Subscripts $s$ and $p$ will be used to denote velocity relative to a planet versus that relative to the sun. The maneuvering basis vectors are relative to $\vv{v}_{\text{enter},p}$. The exit velocity vector will be rotated by $2\theta_\text{hyp}$, and then reversed in direction (See figure \ref{fig:Hyperbolic Trajectory}). This has the net effect of a rotation of $\pi-2\theta_\text{hyp}$ Recall also that $\hat{m}_r$ points \textit{out} of the orbit.
 
 \begin{align*}
-    \Delta\vv{v}_s &= \Delta\vv{v}_p\\
-    &= \vv{v}_{\text{exit},p}-\vv{v}_{\text{enter},p}\\
-    &= v_\infty\hat{v}_{\text{exit},p}-v_\infty\hat{v}_{\text{enter},p}\\
-    &= v_\infty(\cos(\pi-2\theta_\text{hyp})\hat{m}_v-\sin(\pi-2\theta_\text{hyp})(-\hat{m}_r))-v_\infty\hat{m}_v\\
-    &= v_\infty(\cos(\pi-2\theta_\text{hyp})\hat{m}_v+\sin(\pi-2\theta_\text{hyp})\hat{m}_r)-v_\infty\hat{m}_v\\
-    &= v_\infty(-\cos(2\theta_\text{hyp})\hat{m}_v+\sin(2\theta_\text{hyp})\hat{m}_r)-v_\infty\hat{m}_v\\
-    &= v_\infty((-1-\cos(2\theta_\text{hyp}))\hat{m}_v+\sin(2\theta_\text{hyp})\hat{m}_r)\\
-    &= v_\infty(-(1+\cos(2\theta_\text{hyp}))\hat{m}_v+\sin(2\theta_\text{hyp})\hat{m}_r)\\
-    &= v_\infty(-(1+\cos(2\arctan(m_\text{hyp})))\hat{m}_v+\sin(2\arctan(m_\text{hyp}))\hat{m}_r)\\
+    \Delta\vv{v}_s & = \Delta\vv{v}_p                                                                                             \\
+                   & = \vv{v}_{\text{exit},p}-\vv{v}_{\text{enter},p}                                                             \\
+                   & = v_\infty\hat{v}_{\text{exit},p}-v_\infty\hat{v}_{\text{enter},p}                                           \\
+                   & = v_\infty(\cos(\pi-2\theta_\text{hyp})\hat{m}_v-\sin(\pi-2\theta_\text{hyp})(-\hat{m}_r))-v_\infty\hat{m}_v \\
+                   & = v_\infty(\cos(\pi-2\theta_\text{hyp})\hat{m}_v+\sin(\pi-2\theta_\text{hyp})\hat{m}_r)-v_\infty\hat{m}_v    \\
+                   & = v_\infty(-\cos(2\theta_\text{hyp})\hat{m}_v+\sin(2\theta_\text{hyp})\hat{m}_r)-v_\infty\hat{m}_v           \\
+                   & = v_\infty((-1-\cos(2\theta_\text{hyp}))\hat{m}_v+\sin(2\theta_\text{hyp})\hat{m}_r)                         \\
+                   & = v_\infty(-(1+\cos(2\theta_\text{hyp}))\hat{m}_v+\sin(2\theta_\text{hyp})\hat{m}_r)                         \\
+                   & = v_\infty(-(1+\cos(2\arctan(m_\text{hyp})))\hat{m}_v+\sin(2\arctan(m_\text{hyp}))\hat{m}_r)                 \\
 \end{align*}
 
 It can be shown from trigonometry that
@@ -1830,37 +2168,92 @@ $$\cos(2\arctan(\theta))=\frac{1-\theta^2}{1+\theta^2}\qquad\text{and}\qquad\sin
 %\left(\sqrt{\left(\frac{r_\text{pe}v_\infty^2}{\mu}+1\right)^2-1}\right)
 
 \begin{align*}
-    \Delta\vv{v}_s &= v_\infty(-(1+\cos(2\arctan(m_\text{hyp})))\hat{m}_v+\sin(2\arctan(m_\text{hyp}))\hat{m}_r)\\
-    &= v_\infty\left(-\left(1+\frac{1-m_\text{hyp}^2}{1+m_\text{hyp}^2}\right)\hat{m}_v+\frac{2m_\text{hyp}}{1+m_\text{hyp}^2}\hat{m}_r\right)\\
-    &= v_\infty\left(-\left(1+\frac{1-\left(\frac{r_\text{pe}v_\infty^2}{\mu}+1\right)^2+1}{1+\left(\frac{r_\text{pe}v_\infty^2}{\mu}+1\right)^2-1}\right)\hat{m}_v+\frac{2\sqrt{\left(\frac{r_\text{pe}v_\infty^2}{\mu}+1\right)^2-1}}{1+\left(\frac{r_\text{pe}v_\infty^2}{\mu}+1\right)^2-1}\hat{m}_r\right)\\
-    &= v_\infty\left(-\left(\frac{2}{\left(\frac{r_\text{pe}v_\infty^2}{\mu}+1\right)^2}\right)\hat{m}_v+\frac{2\sqrt{\left(\frac{r_\text{pe}v_\infty^2}{\mu}+1\right)^2-1}}{\left(\frac{r_\text{pe}v_\infty^2}{\mu}+1\right)^2}\hat{m}_r\right)\\
-    &= v_\infty\left(\frac{-2}{\left(\frac{r_\text{pe}v_\infty^2}{\mu}+1\right)^2}\hat{m}_v+\frac{2\sqrt{\left(\frac{r_\text{pe}v_\infty^2}{\mu}+1\right)^2-1}}{\left(\frac{r_\text{pe}v_\infty^2}{\mu}+1\right)^2}\hat{m}_r\right)\\
+    \Delta\vv{v}_s & = v_\infty(-(1+\cos(2\arctan(m_\text{hyp})))\hat{m}_v+\sin(2\arctan(m_\text{hyp}))\hat{m}_r)                                                                                                                                                                                                               \\
+                   & = v_\infty\left(-\left(1+\frac{1-m_\text{hyp}^2}{1+m_\text{hyp}^2}\right)\hat{m}_v+\frac{2m_\text{hyp}}{1+m_\text{hyp}^2}\hat{m}_r\right)                                                                                                                                                                  \\
+                   & = v_\infty\left(-\left(1+\frac{1-\left(\frac{r_\text{pe}v_\infty^2}{\mu}+1\right)^2+1}{1+\left(\frac{r_\text{pe}v_\infty^2}{\mu}+1\right)^2-1}\right)\hat{m}_v+\frac{2\sqrt{\left(\frac{r_\text{pe}v_\infty^2}{\mu}+1\right)^2-1}}{1+\left(\frac{r_\text{pe}v_\infty^2}{\mu}+1\right)^2-1}\hat{m}_r\right) \\
+                   & = v_\infty\left(-\left(\frac{2}{\left(\frac{r_\text{pe}v_\infty^2}{\mu}+1\right)^2}\right)\hat{m}_v+\frac{2\sqrt{\left(\frac{r_\text{pe}v_\infty^2}{\mu}+1\right)^2-1}}{\left(\frac{r_\text{pe}v_\infty^2}{\mu}+1\right)^2}\hat{m}_r\right)                                                                \\
+                   & = v_\infty\left(\frac{-2}{\left(\frac{r_\text{pe}v_\infty^2}{\mu}+1\right)^2}\hat{m}_v+\frac{2\sqrt{\left(\frac{r_\text{pe}v_\infty^2}{\mu}+1\right)^2-1}}{\left(\frac{r_\text{pe}v_\infty^2}{\mu}+1\right)^2}\hat{m}_r\right)                                                                             \\
 \end{align*}
 
 While this may not intuitively seem that useful (and, frankly, it isn't), the magnitude proves to be much simpler.
 
 \begin{align*}
-    |\Delta\vv{v}_s|&= v_\infty\left|\frac{-2}{\left(\frac{r_\text{pe}v_\infty^2}{\mu}+1\right)^2}\hat{m}_v+\frac{2\sqrt{\left(\frac{r_\text{pe}v_\infty^2}{\mu}+1\right)^2-1}}{\left(\frac{r_\text{pe}v_\infty^2}{\mu}+1\right)^2}\hat{m}_r\right|\\
-    &= v_\infty\sqrt{\left(\frac{-2}{\left(\frac{r_\text{pe}v_\infty^2}{\mu}+1\right)^2}\right)^2+\left(\frac{2\sqrt{\left(\frac{r_\text{pe}v_\infty^2}{\mu}+1\right)^2-1}}{\left(\frac{r_\text{pe}v_\infty^2}{\mu}+1\right)^2}\right)^2}\\
-    &= v_\infty\sqrt{\frac{4}{\left(\frac{r_\text{pe}v_\infty^2}{\mu}+1\right)^4}+\frac{4\left(\left(\frac{r_\text{pe}v_\infty^2}{\mu}+1\right)^2-1\right)}{\left(\frac{r_\text{pe}v_\infty^2}{\mu}+1\right)^4}}\\
-    &= 2v_\infty\sqrt{\frac{1+\left(\frac{r_\text{pe}v_\infty^2}{\mu}+1\right)^2-1}{\left(\frac{r_\text{pe}v_\infty^2}{\mu}+1\right)^4}}\\
-    &= 2v_\infty\sqrt{\frac{\left(\frac{r_\text{pe}v_\infty^2}{\mu}+1\right)^2}{\left(\frac{r_\text{pe}v_\infty^2}{\mu}+1\right)^4}}\\
-    &= 2v_\infty\sqrt{\frac{1}{\left(\frac{r_\text{pe}v_\infty^2}{\mu}+1\right)^2}}\\
-    &= \frac{2v_\infty}{\frac{r_\text{pe}v_\infty^2}{\mu}+1}\\
+    |\Delta\vv{v}_s| & = v_\infty\left|\frac{-2}{\left(\frac{r_\text{pe}v_\infty^2}{\mu}+1\right)^2}\hat{m}_v+\frac{2\sqrt{\left(\frac{r_\text{pe}v_\infty^2}{\mu}+1\right)^2-1}}{\left(\frac{r_\text{pe}v_\infty^2}{\mu}+1\right)^2}\hat{m}_r\right|       \\
+                     & = v_\infty\sqrt{\left(\frac{-2}{\left(\frac{r_\text{pe}v_\infty^2}{\mu}+1\right)^2}\right)^2+\left(\frac{2\sqrt{\left(\frac{r_\text{pe}v_\infty^2}{\mu}+1\right)^2-1}}{\left(\frac{r_\text{pe}v_\infty^2}{\mu}+1\right)^2}\right)^2} \\
+                     & = v_\infty\sqrt{\frac{4}{\left(\frac{r_\text{pe}v_\infty^2}{\mu}+1\right)^4}+\frac{4\left(\left(\frac{r_\text{pe}v_\infty^2}{\mu}+1\right)^2-1\right)}{\left(\frac{r_\text{pe}v_\infty^2}{\mu}+1\right)^4}}                          \\
+                     & = 2v_\infty\sqrt{\frac{1+\left(\frac{r_\text{pe}v_\infty^2}{\mu}+1\right)^2-1}{\left(\frac{r_\text{pe}v_\infty^2}{\mu}+1\right)^4}}                                                                                                  \\
+                     & = 2v_\infty\sqrt{\frac{\left(\frac{r_\text{pe}v_\infty^2}{\mu}+1\right)^2}{\left(\frac{r_\text{pe}v_\infty^2}{\mu}+1\right)^4}}                                                                                                      \\
+                     & = 2v_\infty\sqrt{\frac{1}{\left(\frac{r_\text{pe}v_\infty^2}{\mu}+1\right)^2}}                                                                                                                                                       \\
+                     & = \frac{2v_\infty}{\frac{r_\text{pe}v_\infty^2}{\mu}+1}                                                                                                                                                                              \\
 \end{align*}
 
 The magnitude of $\Delta V$ from a gravity assist is
 \begin{equation}\label{Gravity Assist Delta V}
-   \Delta V_\text{assist}=\frac{2\mu_p v_\infty}{r_\text{pe}v_\infty^2+\mu_p}\\
+    \Delta V_\text{assist}=\frac{2\mu_p v_\infty}{r_\text{pe}v_\infty^2+\mu_p}\\
 \end{equation}
 
-Where $\mu_p$ refers to the standard gravitational parameter of the planet that is giving a gravity assist
+Where $\mu_p$ refers to the standard gravitational parameter of the planet that is giving a gravity assist.
+
+The direction of this gravity assist is the direction of the change relative velocity of the planet. From Figures \ref{fig:Jupiter Flyby Rel Velocities}, \ref{fig:Gravity Assist Ahead of Planet}, and \ref{fig:Gravity assists above/below}, the direction of change in velocity is the vector facing from the periapsis of the hyperbola to the planet.
+
+Equation \eqref{Gravity Assist Delta V} can be optimized to find the peak $\Delta V$. It is clear that any decrease in $r_\text{pe}$ will increase the $\Delta V$, so the optimization will be for peak $v_\infty$. This will be done by differentiating \eqref{Gravity Assist Delta V} with respect to $v_\infty$, and setting the derivative to zero.
+
+\begin{align*}
+    \frac{d}{dv_\infty}\Delta V_\text{assist} & =\frac{d}{dv_\infty}\Delta\left(\frac{2\mu_p v_\infty}{r_\text{pe}v_\infty^2+\mu_p}\right)                                                         \\
+                                              & =\frac{d}{dv_\infty}\left(\frac{2\mu_p v_\infty}{r_\text{pe}v_\infty^2+\mu_p}\right)                                                               \\
+                                              & =2\mu_p\frac{d}{dv_\infty}\left(v_\infty(r_\text{pe}v_\infty^2+\mu_p)^{-1}\right)                                                                  \\
+                                              & =2\mu_p\left(v_\infty\frac{d}{dv_\infty}(r_\text{pe}v_\infty^2+\mu_p)^{-1}+(r_\text{pe}v_\infty^2+\mu_p)^{-1}\frac{d}{dv_\infty}v_\infty\right)    \\
+                                              & =2\mu_p\left(-v_\infty(r_\text{pe}v_\infty^2+\mu_p)^{-2}\frac{d}{dv_\infty}(r_\text{pe}v_\infty^2+\mu_p)+(r_\text{pe}v_\infty^2+\mu_p)^{-1}\right) \\
+                                              & =2\mu_p\left(-v_\infty(r_\text{pe}v_\infty^2+\mu_p)^{-2}(2r_\text{pe}v_\infty)+(r_\text{pe}v_\infty^2+\mu_p)^{-1}\right)                           \\
+                                              & =2\mu_p\left(\frac{-2r_\text{pe}v_\infty^2}{(r_\text{pe}v_\infty^2+\mu_p)^2}+\frac{1}{r_\text{pe}v_\infty^2+\mu_p}\right)                          \\
+                                              & =2\mu_p\left(\frac{-2r_\text{pe}v_\infty^2+r_\text{pe}v_\infty^2+\mu_p}{(r_\text{pe}v_\infty^2+\mu_p)^2}\right)                                    \\
+                                              & =2\mu_p\left(\frac{-r_\text{pe}v_\infty^2+\mu_p}{(r_\text{pe}v_\infty^2+\mu_p)^2}\right)                                                           \\
+\end{align*}
+
+Now, this will be set to zero to find $v_\infty$ for maximum $\Delta V$
+\begin{align*}
+    2\mu_p\left(\frac{-r_\text{pe}v_\infty^2+\mu_p}{(r_\text{pe}v_\infty^2+\mu_p)^2}\right) & = 0                                \\
+    \frac{-r_\text{pe}v_\infty^2+\mu_p}{(r_\text{pe}v_\infty^2+\mu_p)^2}                    & = 0                                \\
+    -r_\text{pe}v_\infty^2+\mu_p                                                            & = 0                                \\
+    r_\text{pe}v_\infty^2                                                                   & = \mu_p                            \\
+    v_\infty^2                                                                              & = \frac{\mu_p}{r_\text{pe}}        \\
+    v_\infty                                                                                & = \sqrt{\frac{\mu_p}{r_\text{pe}}} \\
+\end{align*}
+
+Notice that this is equal to the velocity for a circular orbit at periapsis.
+\begin{equation}\label{Gravity Assist Best Vinfty}
+    v_{\infty,\text{best}} = \sqrt{\frac{\mu_p}{r_\text{pe}}} = v_\text{circ@pe}
+\end{equation}
+
+This can be plugged into Equation \eqref{Gravity Assist Delta V} to find the optimal $\Delta V$ for a gravity assist.
+\begin{align*}
+    \Delta V_\text{assist} & =\frac{2\mu_p v_\infty}{r_\text{pe}v_\infty^2+\mu_p}                                                              \\
+                           & =\frac{2\mu_p \sqrt{\frac{\mu_p}{r_\text{pe}}}}{r_\text{pe}\left(\sqrt{\frac{\mu_p}{r_\text{pe}}}\right)^2+\mu_p} \\
+                           & =\frac{2\mu_p \sqrt{\frac{\mu_p}{r_\text{pe}}}}{2\mu_p}                                                           \\
+                           & =\sqrt{\frac{\mu_p}{r_\text{pe}}}
+\end{align*}
+
+The maximum $\Delta V$ from a gravity assist occurs when the limiting velocity of the satellite is $v_\infty=\sqrt{\frac{\mu_p}{r_\text{pe}}}$, and it results in an assist with $\Delta V = \sqrt{\frac{\mu_p}{r_\text{pe}}}$ along the vector pointing from periapsis to the planet.
+
+For the sake of curiosity, we shall now find (using Equation \eqref{Hyperbolic Flyby Eccentricity}) the eccentricity that this hyperbolic trajectory will have.
+
+\begin{align*}
+    e & = \frac{r_\text{pe}v_\infty^2}{\mu_p}+1                   \\
+      & = \frac{r_\text{pe}(\sqrt{\mu_p/r_\text{pe}})^2}{\mu_p}+1 \\
+      & = \frac{r_\text{pe}(\mu_p/r_\text{pe})}{\mu_p}+1          \\
+      & = \frac{r_\text{pe}\mu_p}{\mu_p r_\text{pe}}+1            \\
+      & = 1+1                                                     \\
+      & = 2
+\end{align*}
+
+The eccentricity to maximize $\Delta V$ of a gravity assist is $e=2$. Equation \eqref{Hyperbolic entry/exit angle} shows that this gives $\theta_\text{hyp}=60^{\circ}=\frac{\pi}{3}$.
 
 \subsubsection{Gravity Assist Conclusion}
 
-The term "gravity assist" is possibly a bit of a misnomer, as the gravity serves only to redirect the velocity of the spacecraft, but does not change its magnitude. A spacecraft can be accelerated in its orbit by a planet if it passes behind the planet. Really what's happening is the spacecraft is using the planet's own velocity to change the spacecraft's orbit. A well-timed flyby can act to change the velocity of the spacecraft in many different directions. From equation \eqref{Gravity Assist Delta V}, it can be seen that $\Delta V$ is maximized by minimizing $r_\text{pe}$ and maximizing $v_\infty$. It can also be seen that the greater the mass of the planet (and therefore $\mu$, the larger the effect will be). Another way of stating this is that to maximize the effect of a gravity assist, the hyperbolic trajectory should maximize its change in direction, which means minimizing its eccentricity (provided the eccentricity is greater than one). From Equation \eqref{Hyperbolic Flyby Eccentricity}, it can be seen that this entails minimizing $r_\text{pe}$ for any given $v_\infty$. 
+The term "gravity assist" is possibly a bit of a misnomer, as the gravity serves only to redirect the velocity of the spacecraft, but does not change its magnitude. A spacecraft can be accelerated in its orbit by a planet if it passes behind the planet. Really what's happening is the spacecraft is using the planet's mass to redirect its speed, resulting in a change in the spacecraft's orbit. A well-timed flyby can act to change the velocity of the spacecraft in many different directions. From equation \eqref{Gravity Assist Delta V}, it can be seen that $\Delta V$ is maximized by minimizing $r_\text{pe}$ and bringing $v_\infty$ as close as possible to $\sqrt{\frac{\mu_p}{r_\text{pe}}}$. At this value for $v_\infty$, $\Delta V = \sqrt{\frac{\mu_p}{r_\text{pe}}}$ and the hyperbola will have an eccentricity of $e=2$. It can also be seen that the greater the mass of the planet (and therefore $\mu$), the larger the effect will be. Another way of stating this is that to maximize the effect of a gravity assist, the hyperbolic trajectory should maximize its change in direction, which means minimizing its eccentricity (provided the eccentricity is greater than one). From Equation \eqref{Hyperbolic Flyby Eccentricity}, it can be seen that this entails minimizing $r_\text{pe}$ for any given $v_\infty$.
 
 %TODO: Patched Conics
+%TODO: Lagrange Points
 
 \pagebreak
 \section{Appendix}
@@ -1930,42 +2323,45 @@ To get a better sense for how orbital parameters work, it is highly reccomended 
 
 \bigskip\bigskip
 \subsection{Orbit elements}
-%\begin{figure}[H]
-%    \centering
-%    \def\SMA{3}
-%    \def\inc{20}
 
-%    \tdplotsetmaincoords{70}{40}
-%    \begin{tikzpicture}[tdplot_main_coords, >=latex]
-%        \tdplotsetrotatedcoords{0}{-\inc}{0}
+\begin{comment}
+\begin{figure}[H]
+    \centering
+    \def\SMA{3}
+    \def\inc{20}
 
-%original orbit
-%        \draw[lightgray, samples=250, red] plot ({deg(\x)}:\SMA);
-%        \draw[red, ->] (0,0,0) -- +(\SMA,0,0);
-%        \draw[red, ->] (0,0,0) -- +(0,0,1);
+    \tdplotsetmaincoords{70}{40}
+    \begin{tikzpicture}[tdplot_main_coords, >=latex]
+        \tdplotsetrotatedcoords{0}{-\inc}{0}
 
-% inclined orbit
-%        \draw[tdplot_rotated_coords, samples=250] plot ({deg(\x)}:\SMA);
-%        \draw[tdplot_rotated_coords, ->] (0,0,0) -- +(\SMA,0,0);
-%        \draw[tdplot_rotated_coords, ->] (0,0,0) -- +(0,0,1);
+        %original orbit
+        \draw[lightgray, samples=250, red] plot ({deg(\x)}:\SMA);
+        \draw[red, ->] (0,0,0) -- +(\SMA,0,0);
+        \draw[red, ->] (0,0,0) -- +(0,0,1);
 
-% Ascending an Descending Nodes
-%        \filldraw[] (0,\SMA,0) circle (1pt) node[above right, black] {\small DN};
-%        \filldraw[] (0,-\SMA,0) circle (1pt) node[below left, black] {\small AN};
-%        \draw[densely dashed] (0,\SMA,0)--(0,-\SMA,0);
-%        \draw[densely dashed] (2,0,0) arc (0:270:2) node[near end, above] {$\Omega$};
+        % inclined orbit
+        \draw[tdplot_rotated_coords, samples=250] plot ({deg(\x)}:\SMA);
+        \draw[tdplot_rotated_coords, ->] (0,0,0) -- +(\SMA,0,0);
+        \draw[tdplot_rotated_coords, ->] (0,0,0) -- +(0,0,1);
 
-% inclination labels
-%        \draw[tdplot_rotated_coords,gray, densely dashed] (0,0,0) -- +(0,0,2);
-%        \draw[densely dashed, gray] (0,0,0) -- (0,0,2);
-%        \tdplotsetrotatedcoords{-90}{90}{90}
-%        \draw[tdplot_rotated_coords, densely dashed, thick] (0,2,0) arc (90:90+\inc:2) node[midway, above] {$i$};
-%        \draw[tdplot_rotated_coords, densely dashed, thick] (\SMA,0, 0) arc (0:\inc:\SMA) node[midway, right] {$i$};
-%    \end{tikzpicture}
-%    \caption{An orbit with inclination and longitude of ascending node shown}\label{fig:Inclination}
-%\end{figure}
+        % Ascending an Descending Nodes
+        \filldraw[] (0,\SMA,0) circle (1pt) node[above right, black] {\small DN};
+        \filldraw[] (0,-\SMA,0) circle (1pt) node[below left, black] {\small AN};
+        \draw[densely dashed] (0,\SMA,0)--(0,-\SMA,0);
+        \draw[densely dashed] (2,0,0) arc (0:270:2) node[near end, above] {$\Omega$};
 
-%The inclination $i$ is shown in the above figure, as well as both the ascending and descending nodes. The longitude of ascending node $\Omega$ is shown as well, which in this case is 270 degrees.
+        % inclination labels
+        \draw[tdplot_rotated_coords,gray, densely dashed] (0,0,0) -- +(0,0,2);
+        \draw[densely dashed, gray] (0,0,0) -- (0,0,2);
+        \tdplotsetrotatedcoords{-90}{90}{90}
+        \draw[tdplot_rotated_coords, densely dashed, thick] (0,2,0) arc (90:90+\inc:2) node[midway, above] {$i$};
+        \draw[tdplot_rotated_coords, densely dashed, thick] (\SMA,0, 0) arc (0:\inc:\SMA) node[midway, right] {$i$};
+    \end{tikzpicture}
+    \caption{An orbit with inclination and longitude of ascending node shown}\label{fig:Inclination}
+\end{figure}
+
+The inclination $i$ is shown in the above figure, as well as both the ascending and descending nodes. The longitude of ascending node $\Omega$ is shown as well, which in this case is 270 degrees.
+\end{comment}
 
 \begin{figure}[H]
     \centering
