@@ -1878,46 +1878,51 @@ In the above figure, $\Delta V$ is represented by the colors, while the axes cor
 \bigskip\bigskip
 \subsection{Expedited Transfer}
 
-It may at times be the case that the Hohmann Transfer is simply too slow for some applications. If the transfer is from a low orbit to a higher one, then the apoapsis of the transfer orbit can simply be raised higher than the destination orbit.
-
-
-\begin{figure}[H]
-    \centering
-    \def\Rone{0.75}
-    \def\Rtwo{2.5}
-    \def\transSMA{\fpeval{2*\rTwo}}
-    \def\ctrX{\fpeval{\Rone-\transSMA}}
-    \def\trE{\fpeval{\Rtwo/\transSMA - 1}}
-    \def\transSmA{\fpeval{\transSMA*sqrt(1-(\trE)^2)}}
-    \def\dV{1.25}
-    \definecolor{purp}{rgb}{.8,0,.8}
-    \begin{tikzpicture}[>=latex]
-        \draw[thin, dotted, blue] (0,0) ellipse ({\Rone} and {\Rone});
-        \draw[blue, thick,>-] (-\Rone,0) arc (180:360:{\Rone} and {\Rone}) node[right] {$r_1$};
-
-
-%        \draw[thin, dotted, purp] (\ctrX,0) ellipse ({\transSMA} and {\transSmA});
-%        \draw[purp, thick] (\Rone,0) arc (0:180:{\transSMA} and {\transSmA});
-
-        \draw[thin, dotted,red] (0,0) ellipse ({\Rtwo} and {\Rtwo});
-        \draw[red, thick,->] (-\Rtwo,0) arc (180:360:{\Rtwo} and {\Rtwo}) node[right] {$r_2$};;
-
-        \filldraw[lightgray] (0,0) circle (2pt);
-
-        \draw[->] (\Rone,0)--+(0,\dV) node[above] {$\Delta v_1$};
-        \draw[->] (-\Rtwo,0)--+(0,-\dV) node[below] {$\Delta v_2$};
-
-    \end{tikzpicture}
-    \caption{A Hohmann Transfer from a low orbit to a high orbit (left) and from a high orbit to a lower one (right)}\label{fig:Expedited Transfer}
-\end{figure}
-
-
-%TODO
+It may at times be the case that the Hohmann Transfer is simply too slow for some applications. If the transfer is from a low orbit to a higher one, then the apoapsis of the transfer orbit can simply be raised higher than the destination orbit. Calculating the $\Delta V$ of such a transfer is elementary, as it requires only application of Equation \eqref{Vis-Viva Equation}. Unfortunately, there is no analytical way of finding the transfer time, so any mathematical analysis of such a transfer is moot.
 
 \bigskip\bigskip
 \subsection{Bi-Elliptic Transfer}
 
 A bi-elliptic transfer is another means of transferring from one circular orbit to another. While a Hohmann transfer takes a spacecraft from one circular orbit to another via a singular transfer orbit, the bi-elliptic transfer utilizes a series of two transfer orbits. First, the spacecraft is put into an orbit much higher than either the source or destination orbit. Then, at the apoapsis of the high transfer orbit, the periapsis is brought to the new orbit.
+
+\begin{figure}[H]
+    \centering
+    \def\Rone{0.75}
+    \def\Rtwo{1.25}
+    \def\trAP{4}
+    \def\trSMAa{\fpeval{0.5*(\Rone+\trAP)}}
+    \def\trSMAb{\fpeval{0.5*(\Rtwo+\trAP)}}
+    \def\trEa{\fpeval{(\trAP/\trSMAa) - 1}}
+    \def\trEb{\fpeval{(\trAP/\trSMAb) - 1}}
+    \def\ctrXa{\fpeval{\Rone-\trSMAa}}
+    \def\ctrXb{\fpeval{\Rtwo-\trSMAb}}
+    \def\trSmAa{\fpeval{\trSMAa*sqrt(1-(\trEa)^2)}}
+    \def\trSmAb{\fpeval{\trSMAb*sqrt(1-(\trEb)^2)}}
+    \def\dV{1.25}
+    \definecolor{purpA}{rgb}{.4,0,.8}
+    \definecolor{purpB}{rgb}{.8,0,.4}
+    \begin{tikzpicture}[>=latex]
+        \draw[thin, dotted, blue] (0,0) ellipse ({\Rone} and {\Rone});
+        \draw[blue, thick,>-] (-\Rone,0) arc (180:360:{\Rone} and {\Rone}) node[right] {$r_1$};
+
+        \draw[thin, dotted, purpA] (\ctrXa,0) ellipse ({\trSMAa} and {\trSmAa});
+        \draw[purpA, thick] (\Rone,0) arc (0:180:{\trSMAa} and {\trSmAa});
+
+        \draw[thin, dotted, purpB] (\ctrXb,0) ellipse ({\trSMAb} and {\trSmAb});
+        \draw[purpB, thick] (-\trAP,0) arc (180:360:{\trSMAb} and {\trSmAb});
+
+        \draw[thin, dotted,red] (0,0) ellipse ({\Rtwo} and {\Rtwo});
+        \draw[red, thick,->] (\Rtwo,0) arc (0:180:{\Rtwo} and {\Rtwo}) node[right] {$r_2$};;
+
+        \filldraw[lightgray] (0,0) circle (2pt);
+
+        \draw[->] (\Rone,0)--+(0,\dV) node[above] {$\Delta v_1$};
+        \draw[->] (-\trAP,0)--+(0,-\dV) node[below] {$\Delta v_2$};
+        \draw[->] ( \Rtwo,0)--+(0,-\dV) node[below] {$\Delta v_3$};
+
+    \end{tikzpicture}
+    \caption{A bi-elliptic transfer from a low orbit to a high orbit (left)}\label{fig:Bielliptic Transfer}
+\end{figure}
 
 %TODO
 
