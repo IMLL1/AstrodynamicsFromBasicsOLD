@@ -12,6 +12,7 @@
 \usetikzlibrary{arrows.meta}
 \usetikzlibrary{arrows}
 \usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary{decorations.markings}
 \usepackage{float}
 \usepackage{pgffor}
 \usepackage[pdfencoding=auto, psdextra]{hyperref}
@@ -26,7 +27,7 @@
 
 \title{Fundamentals of Orbital Mechanics}
 \author{Sir Fig Newton and Johannes Momma\\Purdon't University, School of Aeronautics and Astronautics}
-\date{Est. March 2023}
+\date{Est. mid-March 2023}
 
 \begin{document}
 
@@ -294,7 +295,7 @@ Which allows Equation \eqref{Polar with h, mu, e} to transform to
     r=\frac{p}{1+e\cos(\theta-\omega)}
 \end{equation}
 
-However, the semi-latus rectum term is still inideal; the objective is to express everything in terms of $a$ and $e$. Recall the logic behind apoapsis and periapsis radii: the apoapsis occurs when the denominator is minimized, while the periapsis occurs when it is maximized. Applying this to Equation \eqref{Polar with p, e}:
+However, the semi-latus rectum term is still unideal; the objective is to express everything in terms of $a$ and $e$. Recall the logic behind apoapsis and periapsis radii: the apoapsis occurs when the denominator is minimized, while the periapsis occurs when it is maximized. Applying this to Equation \eqref{Polar with p, e}:
 \begin{align*}
     r_\text{ap}      & =\frac{p}{1-e} & \frac{p}{1+e} & =r_\text{pe}      \\
     r_\text{ap}(1-e) & =p             & p             & =r_\text{pe}(1+e) \\
@@ -329,6 +330,7 @@ The $\omega$ term will be dropped, and this equation describes $r$ with respect 
 
 Note that for hyperbolic and parabolic orbits, this equation (as well as the similar equations for $r$ in terms of $\theta$) is only valid for $\frac{-\pi}{2}<\theta<\frac{\pi}{2}$.
 
+\pagebreak
 \section{Proofs}
 
 \bigskip\bigskip
@@ -383,7 +385,7 @@ This equation is also valid for hyperbolic orbits, as $a\sqrt{1-e^2}$ will be pu
 Notice that the multiplicity of $y$ is 2, and the multiplicity of $x$ is 1. This is a parabola that opens up in the $-x$ direction.
 
 \bigskip\bigskip
-\subsection{Kepler's Second Law}
+\subsection{Kepler's Second Law}\label{sec:Kepler's Second Law}
 
 Kepler's second law states that the line connecting an orbiting body and the body it orbits sweeps out equal area in equal quantities of time.
 \begin{figure}[H]
@@ -590,15 +592,17 @@ The eccentricity can also be put in terms of $r_\text{ap}$ and $r_\text{pe}$ usi
 Setting both sides equal to eachother,
 
 \begin{align*}
-    \frac{r_\text{ap}}{1+e}                                   & =\frac{r_\text{pe}}{1-e}                                                                         \\
-    \frac{1+e}{r_\text{ap}}                                   & =\frac{1-e}{r_\text{pe}}                                                                         \\
-    \frac{1}{r_\text{ap}}+\frac{e}{r_\text{ap}}               & =\frac{1}{r_\text{pe}}-\frac{e}{r_\text{pe}}                                                     \\
-    \frac{e}{r_\text{ap}}+\frac{e}{r_\text{pe}}               & =\frac{1}{r_\text{pe}}-\frac{1}{r_\text{ap}}                                                     \\
-    e\left(\frac{1}{r_\text{ap}}+\frac{1}{r_\text{pe}}\right) & =\frac{1}{r_\text{pe}}-\frac{1}{r_\text{ap}}                                                     \\
-    e                                                         & =\frac{\frac{1}{r_\text{pe}}-\frac{1}{r_\text{ap}}}{\frac{1}{r_\text{pe}}+\frac{1}{r_\text{ap}}} \\
+    \frac{r_\text{ap}}{1+e}                                   & =\frac{r_\text{pe}}{1-e}                                                                                                                                                             \\
+    \frac{1+e}{r_\text{ap}}                                   & =\frac{1-e}{r_\text{pe}}                                                                                                                                                             \\
+    \frac{1}{r_\text{ap}}+\frac{e}{r_\text{ap}}               & =\frac{1}{r_\text{pe}}-\frac{e}{r_\text{pe}}                                                                                                                                         \\
+    \frac{e}{r_\text{ap}}+\frac{e}{r_\text{pe}}               & =\frac{1}{r_\text{pe}}-\frac{1}{r_\text{ap}}                                                                                                                                         \\
+    e\left(\frac{1}{r_\text{ap}}+\frac{1}{r_\text{pe}}\right) & =\frac{1}{r_\text{pe}}-\frac{1}{r_\text{ap}}                                                                                                                                         \\
+    e                                                         & =\frac{\frac{1}{r_\text{pe}}-\frac{1}{r_\text{ap}}}{\frac{1}{r_\text{pe}}+\frac{1}{r_\text{ap}}}                                                                                     \\
+                                                              & =\frac{\frac{r_\text{pe}r_\text{ap}}{r_\text{pe}}-\frac{r_\text{pe}r_\text{ap}}{r_\text{ap}}}{\frac{r_\text{pe}r_\text{ap}}{r_\text{pe}}+\frac{r_\text{pe}r_\text{ap}}{r_\text{ap}}} \\
+                                                              & =\frac{r_\text{ap}-r_\text{pe}}{r_\text{ap}+r_\text{pe}}                                                                                                                             \\
 \end{align*}
 \begin{equation}\label{Accentricity in terms of apses}
-    e=\frac{r_\text{pe}^{-1}-r_\text{ap}^{-1}}{r_\text{pe}^{-1}+r_\text{ap}^{-1}}
+    e=\frac{r_\text{ap}-r_\text{pe}}{r_\text{ap}+r_\text{pe}}
 \end{equation}
 
 \bigskip\bigskip
@@ -616,7 +620,7 @@ $$b=a\sqrt{|1-e^2|}$$
 
 \bigskip
 The semi-major axis and eccentricity of an elliptic orbit can be stated in terms of known periapsis and apoapsis radii
-$$a=\frac{r_\text{pe}+r_\text{ap}}{2}\qquad\qquad e=\frac{r_\text{pe}^{-1}-r_\text{ap}^{-1}}{r_\text{pe}^{-1}+r_\text{ap}^{-1}}$$
+$$a=\frac{r_\text{pe}+r_\text{ap}}{2}\qquad\qquad e=\frac{r_\text{ap}-r_\text{pe}}{r_\text{ap}+r_\text{pe}}$$
 
 Because hyperbolas don't have physically meaningful apoapses, the semi-major axis and eccentricity can be defined in terms of the entry/exit angle $\theta_\text{hyp}$ and the periapsis radius.
 $$e=\sec(\theta_\text{hyp})\qquad\qquad a=\frac{{r_\text{pe}}}{1-\sec(\theta_\text{hyp})}$$
@@ -808,6 +812,75 @@ When taking the inverse cosine, a solution will be lost. On the side of the orbi
 \end{equation}
 
 \bigskip\bigskip
+\subsection{Time Since Periapsis}\label{sec:time}
+
+Because of Kepler's second law (Section \ref{sec:Kepler's Second Law}), there is a direct analogue between area swept out and time spent on the orbit. This allows the following relationship to be made between the time since periapsis $T_p$ and $\theta$.
+
+\begin{align*}
+    T_p(\theta) & = \frac{T}{\text{Area}}\times\text{Area swept from periapsis to }\theta                                           \\
+                & = \frac{\sqrt{\frac{4\pi^2a^3}{\mu}}}{\pi{}a^2\sqrt{1-e^2}}\int_{0}^{\theta}\int_{0}^{r(\theta)}rdr d\theta       \\
+                & = \frac{2\pi\sqrt{a^3}}{\pi{}a^2\sqrt{\mu(1-e^2)}}\int_{0}^{\theta}\frac{1}{2}r^2(\theta)d\theta                  \\
+                & = \frac{2}{\sqrt{\mu a(1-e^2)}}\int_{0}^{\theta}\frac{1}{2}\left(\frac{a(1-e^2)}{1+e\cos(\theta)}\right)^2d\theta \\
+                & = \frac{\sqrt{a^3(1-e^2)^3}}{\sqrt{\mu}}\int_{0}^{\theta}\frac{1}{(1+e\cos(\theta))^2}d\theta                     \\
+\end{align*}
+
+At this point, the transformation will be made to integrate with respect to $r$ instead of $\theta$. To do this, $\frac{d\theta}{dr}$ is needed.
+
+\begin{align*}
+    \frac{d\theta}{dr}   & = \frac{1}{dr/d\theta}                             \\
+    \frac{1}{d\theta/dr} & = \frac{dr}{d\theta}                               \\
+                         & =\frac{d}{d\theta}\frac{a(1-e^2)}{1+e\cos(\theta)} \\
+                         & =a(1-e^2)\frac{d}{d\theta}(1+e\cos(\theta))^{-1}   \\
+                         & =-a(1-e^2)(1+e\cos(\theta))^{-2}(-e\sin(\theta))   \\
+                         & =\frac{ea\sin(\theta)(1-e^2)}{(1+e\cos(\theta))^2} \\
+    \frac{d\theta}{dr}   & =\frac{(1+e\cos(\theta))^2}{ea\sin(\theta)(1-e^2)} \\
+\end{align*}
+
+Now, the integral can be transformed to be with respect to $r$.
+
+\begin{align*}
+    T_p & = \frac{\sqrt{a^3(1-e^2)^3}}{\sqrt{\mu}}\int_{r_\text{pe}}^{r(\theta)}\frac{1}{\left(1+e\cos\left(\cos^{-1}\left(\frac{a(1-e^2)-r}{er}\right)\right)\right)^2}\frac{\left(1+e\cos\left(\cos^{-1}\left(\frac{a(1-e^2)-r}{er}\right)\right)\right)^2}{ea\sin\left(\cos^{-1}\left(\frac{a(1-e^2)-r}{er}\right)\right)(1-e^2)}dr \\
+        & =\frac{\sqrt{a^3(1-e^2)^3}}{\sqrt{\mu}}\int_{r_\text{pe}}^{r(\theta)}\frac{1}{\left(1+e\left(\frac{a(1-e^2)-r}{er}\right)\right)^2}\frac{\left(1+e\left(\frac{a(1-e^2)-r}{er}\right)\right)^2}{ea\sin\left(\cos^{-1}\left(\frac{a(1-e^2)-r}{er}\right)\right)(1-e^2)}dr                                                      \\
+        & =\frac{\sqrt{a^3(1-e^2)^3}}{\sqrt{\mu}}\int_{r_\text{pe}}^{r(\theta)}\frac{1}{ea\sin\left(\cos^{-1}\left(\frac{a(1-e^2)-r}{er}\right)\right)(1-e^2)}dr                                                                                                                                                                       \\
+\end{align*}
+
+The property can now be applied that $\sin(\arccos(\theta))=\sqrt{1-\theta^2}$
+
+\begin{align*}
+    T_p & =\frac{\sqrt{a^3(1-e^2)^3}}{\sqrt{\mu}}\int_{r_\text{pe}}^{r(\theta)}\frac{1}{ea\sin\left(\cos^{-1}\left(\frac{a(1-e^2)-r}{er}\right)\right)(1-e^2)}dr                                                         \\
+        & =\frac{\sqrt{a^3(1-e^2)^3}}{\sqrt{\mu}}\int_{r_\text{pe}}^{r(\theta)}\frac{1}{ea\sqrt{1-\left(\frac{a(1-e^2)-r}{er}\right)^2}(1-e^2)}dr                                                                        \\
+        & =\frac{\sqrt{a^3(1-e^2)^3}}{\sqrt{\mu}}\int_{r_\text{pe}}^{r(\theta)}\frac{1}{ea\sqrt{1-\left(\frac{a^2(1-e^2)^2-2ar(1-e^2)+r^2}{e^2r^2}\right)}(1-e^2)}dr                                                     \\
+        & =\frac{\sqrt{a^3(1-e^2)^3}}{\sqrt{\mu}}\int_{r_\text{pe}}^{r(\theta)}\frac{1}{ea\sqrt{\frac{e^2r^2-a^2(1-e^2)^2+2ar(1-e^2)-r^2}{e^2r^2}}(1-e^2)}dr                                                             \\
+        & =\frac{\sqrt{a^3(1-e^2)^3}}{\sqrt{\mu}}\int_{r_\text{pe}}^{r(\theta)}\frac{er}{ea\sqrt{-r^2(1-e^2)-a^2(1-e^2)^2+2ar(1-e^2 )}(1-e^2)}dr                                                                         \\
+        & =\frac{\sqrt{a^3(1-e^2)^3}}{\sqrt{\mu}}\int_{r_\text{pe}}^{r(\theta)}\frac{r}{a(1-e^2)^{3/2}\sqrt{-r^2-a^2(1-e^2)+2ar}}dr                                                                                      \\
+        & =\sqrt{\frac{a}{\mu}}\int_{r_\text{pe}}^{r(\theta)}\frac{r}{\sqrt{-r^2-a^2(1-e^2)+2ar}}dr                                                                                                                      \\
+        & =\sqrt{\frac{a}{\mu}}\int_{r_\text{pe}}^{r(\theta)}\frac{r}{\sqrt{-(r-a)^2+a^2(1-(1-e^2))}}dr                                                                                                                  \\
+        & =\sqrt{\frac{a}{\mu}}\int_{r_\text{pe}}^{r(\theta)}\frac{r}{\sqrt{-(a-r)^2+a^2e^2}}dr                                                                                                                          \\
+        & \phantom{=}\qquad{}\text{Substitution: }(a-r)=u_1\qquad{}du_1=-dr                                                                                                                                              \\
+        & =\sqrt{\frac{a}{\mu}}\int_{a-r_\text{pe}}^{a-r(\theta)}\frac{u_1-a}{\sqrt{-u_1^2+a^2e^2}}du_1                                                                                                                  \\
+        & =\sqrt{\frac{a}{\mu}}\left(\int_{a-r_\text{pe}}^{a-r(\theta)}\frac{u_1}{\sqrt{a^2e^2-u_1^2}}du_1-\int_{a-r_\text{pe}}^{a-r(\theta)}\frac{a}{\sqrt{a^2e^2-u_1^2}}du_1\right)                                    \\
+        & \phantom{=}\qquad{}\text{Substitution: }a^2e^2-u_1^2=u_2\qquad{}du_2=-2u_1du_1                                                                                                                                 \\
+        & =\sqrt{\frac{a}{\mu}}\left(\int_{(ae)^2-(a-r_\text{pe})^2}^{(ae)^2-(a-r(\theta))^2}\frac{-0.5}{\sqrt{u_2}}du_2-\int_{a-r_\text{pe}}^{a-r(\theta)}\frac{a}{ae\sqrt{1-\left(\frac{u_1}{ae}\right)^2}}du_1\right) \\
+        & \phantom{=}\qquad{}\text{Substitution: }\frac{u_1}{ae}=u_3\qquad{}du_3=\frac{1}{ae}du_1                                                                                                                        \\
+        & =\sqrt{\frac{a}{\mu}}\left(\frac{-1}{2}\int_{(ae)^2-(a-r_\text{pe})^2}^{(ae)^2-(a-r(\theta))^2}u_2^{-1/2}du_2+a\int_{(a-r_\text{pe})/ae}^{(a-r(\theta))/ae}\frac{-1}{\sqrt{1-u_3^2}}du_3\right)                \\
+        & =\sqrt{\frac{a}{\mu}}\left(-\Big(\sqrt{u_2}\Big)_{(ae)^2-(a-r_\text{pe})^2}^{(ae)^2-(a-r(\theta))^2}+a\Big(\cos^{-1}(u_3)\Big)_{(a-r_\text{pe})/ae}^{(a-r(\theta))/ae}\right)                                  \\
+        & =\sqrt{\frac{a}{\mu}}\left(a\Big(\cos^{-1}(u_3)\Big)_{(a-r_\text{pe})/ae}^{(a-r(\theta))/ae}-\Big(\sqrt{u_2}\Big)_{(ae)^2-(a-r_\text{pe})^2}^{(ae)^2-(a-r(\theta))^2}\right)                                   \\
+        & =\sqrt{\frac{a}{\mu}}\left(a\cos^{-1}\left(\frac{a-r}{ae}\right)\Big|_{r_\text{pe}}^{r(\theta)}-\sqrt{(ae)^2-(a-r)^2}\Big|_{r_\text{pe}}^{r(\theta)}\right)                                                    \\
+        & =\sqrt{\frac{a}{\mu}}\left(a\cos^{-1}\left(\frac{a-r}{ae}\right)-\sqrt{(ae)^2-(a-r)^2}\right)_{r_\text{pe}}^{r(\theta)}                                                                                        \\
+        & =\sqrt{\frac{a}{\mu}}\left(a\cos^{-1}\left(\frac{a-r}{ae}\right)-a\sqrt{e^2-\left(1-\frac{r}{a}\right)^2}\right)_{r_\text{pe}}^{r(\theta)}                                                                     \\
+        & =\sqrt{\frac{a^3}{\mu}}\left(\cos^{-1}\left(\frac{a-r}{ae}\right)- \sqrt{e^2-\left(1-\frac{r}{a}\right)^2}\right)_{r_\text{pe}}^{r(\theta)}                                                                    \\
+\end{align*}
+
+When the function is evaluated at $r_\text{pe}$, the result is $0$. This means that the lower bound of the function can be removed, and the upper bound can be set as the singular argument of the function.
+
+The time since periapsis for an orbit can be evaluated at any radius $r$ with
+\begin{equation}\label{Time since periapsis}
+    t_p(r)=\sqrt{\frac{a^3}{\mu}}\left(\cos^{-1}\left(\frac{a-r}{ae}\right)- \sqrt{e^2-\left(1-\frac{r}{a}\right)^2}\right)
+\end{equation}
+
+This function is only defined from the periapsis radius to the apoapsis radius, and will return a complex value for any radius outside these bounds. For hyperbolic and parabolic orbits, the function does not apply either. In a circular orbit, the argument of arccosine is $\frac{0}{0}$, so the function cannot be evaluated. This function only covers the first half of an orbit. After apoapsis, an orbit will return to every radius between the apoapsis and periapsis before once more arriving at periapsis. To find the time it takes to reach a point on this side of the orbit, simply subtract the result of this function from the period of the orbit.
+
+\bigskip\bigskip
 \subsection{Conclusion}
 
 Throughout this section, many geometric relationships have been found describing orbits. Most importantly, it has been shown that an orbital trajectory can be described in its plane using only two parameters: the semi-major axis $a$ and the eccentricity $e$. These relationships are summarized here.
@@ -842,6 +915,9 @@ $$\phi=\arccos\left(\sqrt{\frac{a^2(1-e^2)}{r(2a-r)}}\right)$$
 The true anomaly can be found in an orbit with
 $$\theta=\arccos\left(\frac{a(1-e^2)-r}{er}\right)$$
 
+\bigskip
+The time since periapsis in any noncircular elliptic orbit can be found with
+$$t_p(r)=\sqrt{\frac{a^3}{\mu}}\left(\cos^{-1}\left(\frac{a-r}{ae}\right)- \sqrt{e^2-\left(1-\frac{r}{a}\right)^2}\right)$$
 \pagebreak
 \section{Geometry from Physical Parameters}
 
@@ -1665,10 +1741,11 @@ However, a more simple means of finding $\Delta a$ can be found using Equation \
 
 Conclusion: burns in the $\hat{m}_v$ direction increase the semi-major axis of the orbit. Because the point that the spacecraft occupies must remain fixed, the opposite side of the orbit exhibits the most change in radius.
 
+\bigskip\bigskip
 \subsection{Conclusion}
 
 \bigskip
-The rocket equation describes the change in velocity (or, more accurately, the magnitude of the vector change in velocity) due to the expendature of propellant in a spacecraft. Because all maneuvers require changing velocity, this $\Delta V$ is treated as a means of measuring mission requirements, almost like a fuel requirement.
+The rocket equation describes the change in velocity (or, more accurately, the magnitude of the vector change in velocity) due to the expenditure of propellant in a spacecraft. Because all maneuvers require changing velocity, this $\Delta V$ is treated as a means of measuring mission requirements, almost like a fuel requirement.
 $$\Delta V = I_{sp}g_0\ln\left(\frac{m_1}{m_2}\right)$$
 
 \bigskip
@@ -1727,7 +1804,7 @@ This gives us the $\Delta V$ required for an inclination change maneuver
 This shows the minimum required $\Delta V$ for an orbital inclination change. If the inclination change occurs at any point other than the ascending or descending node, it will require a greater $\Delta V$ and will also have the effect of chaning the longitude of ascending node $\Omega$ (and therefore moving the ascending and descending nodes). In-plane maneuvers will change neither the inclination nor the longitude of ascending node.
 
 \bigskip\bigskip
-\subsection{Hohmann Transfer}
+\subsection{Hohmann Transfer}\label{sec:Hohmann Transfer}
 
 A Hohmann Transfer is a transfer between two circular orbits from radius $r_1$ to radius $r_2$. The transfer is done via an elliptical orbit, and takes two burns. The first burn puts the orbit into an elliptical orbit in which the periapsis is the lower orbit, and the apoapsis is the higher orbit. The second burn transfers from the elliptic orbit into the final circular orbit.
 
@@ -1810,7 +1887,7 @@ The time for this transfer is simply half the period of the transfer orbit, whic
 
 Giving us a total transfer time of
 
-\begin{equation}
+\begin{equation}\label{Hohmann time}
     t_\text{tr}=\pi\sqrt{\frac{(r_1+r_2)^3}{8\mu}}
 \end{equation}
 
@@ -1830,7 +1907,7 @@ A parameter $\alpha$ will be defined as $r_2/r_1$, allowing $\Delta V$ to be mad
 \end{align*}
 
 \begin{equation}\label{Delta V in terms of Alpha Hohmann}
-    \Delta V(r_1,\alpha) = \sqrt{\frac{\mu}{r_1}}\left|\sqrt{\frac{2\alpha}{1+\alpha}}+\sqrt{\frac{1}{\alpha}}-\sqrt{\frac{2}{\alpha(1+\alpha)}}-1\right|\\
+    \Delta V(\alpha, r_1) = \sqrt{\frac{\mu}{r_1}}\left|\sqrt{\frac{2\alpha}{1+\alpha}}+\sqrt{\frac{1}{\alpha}}-\sqrt{\frac{2}{\alpha(1+\alpha)}}-1\right|\\
 \end{equation}
 
 By plotting $\Delta V$ against the ratio of the final orbit to the initial orbit, a trend can be found. From Equation \eqref{Delta V in terms of Alpha Hohmann}, the exact value of $r_1$ only scales the plot of $\Delta V(\alpha)$ but does not effect its shape.
@@ -1878,7 +1955,7 @@ In the above figure, $\Delta V$ is represented by the colors, while the axes cor
 \bigskip\bigskip
 \subsection{Expedited Transfer}
 
-It may at times be the case that the Hohmann Transfer is simply too slow for some applications. If the transfer is from a low orbit to a higher one, then the apoapsis of the transfer orbit can simply be raised higher than the destination orbit. Calculating the $\Delta V$ of such a transfer is elementary, as it requires only application of Equation \eqref{Vis-Viva Equation}. Unfortunately, there is no analytical way of finding the transfer time, so any mathematical analysis of such a transfer is moot.
+It may at times be the case that the Hohmann Transfer is simply too slow for some applications. If the transfer is from a low orbit to a higher one, then the apoapsis of the transfer orbit can simply be raised higher than the destination orbit. Calculating the $\Delta V$ of such a transfer is elementary, as it requires only application of Equation \eqref{Vis-Viva Equation}. Using Equation \eqref{Time since periapsis}, the transfer time can be evaluated.
 
 \bigskip\bigskip
 \subsection{Bi-Elliptic Transfer}
@@ -1899,20 +1976,20 @@ A bi-elliptic transfer is another means of transferring from one circular orbit 
     \def\trSmAa{\fpeval{\trSMAa*sqrt(1-(\trEa)^2)}}
     \def\trSmAb{\fpeval{\trSMAb*sqrt(1-(\trEb)^2)}}
     \def\dV{1.25}
-    \definecolor{purpA}{rgb}{.4,0,.8}
-    \definecolor{purpB}{rgb}{.8,0,.4}
+    \definecolor{purp}{rgb}{.8,0,.8}
+    \definecolor{rurp}{rgb}{.8,0,.4}
     \begin{tikzpicture}[>=latex]
         \draw[thin, dotted, blue] (0,0) ellipse ({\Rone} and {\Rone});
-        \draw[blue, thick,>-] (-\Rone,0) arc (180:360:{\Rone} and {\Rone}) node[right] {$r_1$};
+        \draw[blue, thick,>-] (-\Rone,0) arc (180:360:{\Rone} and {\Rone}) node[midway, above] {$r_1$};
 
-        \draw[thin, dotted, purpA] (\ctrXa,0) ellipse ({\trSMAa} and {\trSmAa});
-        \draw[purpA, thick] (\Rone,0) arc (0:180:{\trSMAa} and {\trSmAa});
+        \draw[thin, dotted, purp] (\ctrXa,0) ellipse ({\trSMAa} and {\trSmAa});
+        \draw[purp, thick] (\Rone,0) arc (0:180:{\trSMAa} and {\trSmAa}) node[rurp, left] {$r_t$};
 
-        \draw[thin, dotted, purpB] (\ctrXb,0) ellipse ({\trSMAb} and {\trSmAb});
-        \draw[purpB, thick] (-\trAP,0) arc (180:360:{\trSMAb} and {\trSmAb});
+        \draw[thin, dotted, red] (\ctrXb,0) ellipse ({\trSMAb} and {\trSmAb});
+        \draw[red, thick] (-\trAP,0) arc (180:360:{\trSMAb} and {\trSmAb});
 
-        \draw[thin, dotted,red] (0,0) ellipse ({\Rtwo} and {\Rtwo});
-        \draw[red, thick,->] (\Rtwo,0) arc (0:180:{\Rtwo} and {\Rtwo}) node[right] {$r_2$};;
+        \draw[thin, dotted,orange] (0,0) ellipse ({\Rtwo} and {\Rtwo});
+        \draw[orange, thick,->] (\Rtwo,0) arc (0:180:{\Rtwo} and {\Rtwo}) node[near end, above left] {$r_2$};;
 
         \filldraw[lightgray] (0,0) circle (2pt);
 
@@ -1924,7 +2001,169 @@ A bi-elliptic transfer is another means of transferring from one circular orbit 
     \caption{A bi-elliptic transfer from a low orbit to a high orbit (left)}\label{fig:Bielliptic Transfer}
 \end{figure}
 
-%TODO
+Figure \ref{fig:Bielliptic Transfer} shows a satellite undergoing a bi-elliptic transfer. It begins in a low orbit (blue) at some radius $r_1$, then performs a burn to enter a high transfer orbit with apoapsis $r_t>r_2$. It then performs a small prograde burn to raise its periapsis to the destination orbit altitude. Finally, at periapsis, it slows down to lower its apoapsis into a circular orbit. Equation \eqref{Vis-Viva Equation} allows this orbit to be analyzed easily much like was done in Section \ref{sec:Hohmann Transfer}.
+
+$a_1=r_1=r_\text{pe,tr}$ is the smaller orbit radius, and $a_2=r_2=r_\text{ap,tr}$ is the larger larger orbit radius. The semi-major axis of the transfer orbits are $a_\text{tr1}=\frac{1}{2}(r_1+r_t)$ and $a_\text{tr2}=\frac{1}{2}(r_2+r_t)$. $v_1$ and $v_2$ refer to the circular orbit velocities in the original and new orbit. Transfer 1 refers to the first transfer orbit (purple in Figure \ref{fig:Bielliptic Transfer}), while transfer 2 refers to the second (red in the same figure).
+
+\begin{align*}
+    \Delta V & = \Delta v_1+\Delta v_2+\Delta v_3                                              \\
+             & = (v_\text{pe,tr1}-v_1)+(v_\text{ap,tr2}-v_\text{ap,tr1})+(v_2-v_\text{pe,tr2}) \\
+\end{align*}
+
+The first burn will always be an accelerative one, while the last will always be declarative. However, the direction of the second burn will depend on whether the origin orbit is higher or lower than the destination orbit. Therefore, the middle burn must have absolute value bars to ensure that its $\Delta V$ contribution is always positive.
+
+\begin{align*}
+    \Delta V & = |(v_\text{pe,tr1}-v_1)|+|v_\text{ap,tr2}-v_\text{ap,tr1}|+|v_2-v_\text{pe,tr2}|                                                                   \\
+             & = (v_\text{pe,tr1}-v_1)+|v_\text{ap,tr2}-v_\text{ap,tr1}|+(v_\text{pe,tr2}-v_2)                                                                     \\
+             & = \left(\sqrt{\frac{2\mu}{r_\text{pe,tr1}}-\frac{\mu}{a_\text{tr}}}-\sqrt{\frac{2\mu}{r_1}-\frac{\mu}{a_1}}\right)                                  \\
+             & \phantom{=} +\left|\sqrt{\frac{2\mu}{r_\text{ap,tr2}}-\frac{\mu}{a_\text{tr2}}}-\sqrt{\frac{2\mu}{r_\text{ap,tr1}}-\frac{\mu}{a_\text{tr1}}}\right| \\
+             & \phantom{=} +\left(\sqrt{\frac{2\mu}{r_\text{pe,tr2}}-\frac{\mu}{a_\text{tr2}}}-\sqrt{\frac{2\mu}{r_2}-\frac{\mu}{a_2}}\right)                      \\\\
+             & = \left(\sqrt{\frac{2\mu}{r_1}-\frac{2\mu}{r_1+r_t}}-\sqrt{\frac{2\mu}{r_1}-\frac{\mu}{r_1}}\right)                                                 \\
+             & \phantom{=} +\left|\sqrt{\frac{2\mu}{r_t}-\frac{2\mu}{r_2+r_t}}-\sqrt{\frac{2\mu}{r_t}-\frac{2\mu}{r_1+r_t}}\right|                                 \\
+             & \phantom{=} +\left(\sqrt{\frac{2\mu}{r_2}-\frac{2\mu}{r_2+r_t}}-\sqrt{\frac{2\mu}{r_2}-\frac{\mu}{r_2}}\right)                                      \\\\
+             & = \left(\sqrt{\frac{2\mu(r_1+r_t)-2\mu r_1}{r_1(r_1+r_t)}}-\sqrt{\frac{\mu}{r_1}}\right)                                                            \\
+             & \phantom{=} +\left|\sqrt{\frac{2\mu(r_2+r_t)-2\mu r_t}{r_t(r_2+r_t)}}-\sqrt{\frac{2\mu(r_1+r_t)-2\mu r_t}{r_t(r_1+r_t)}}\right|                     \\
+             & \phantom{=} +\left(\sqrt{\frac{2\mu(r_2+r_t)-2\mu r_2}{r_2(r_2+r_t)}}-\sqrt{\frac{\mu}{r_2}}\right)                                                 \\\\
+             & = \left(\sqrt{\frac{2\mu r_t}{r_1(r_1+r_t)}}-\sqrt{\frac{\mu}{r_1}}\right)                                                                          \\
+             & \phantom{=} +\left|\sqrt{\frac{2\mu r_2}{r_t(r_2+r_t)}}-\sqrt{\frac{2\mu r_1}{r_t(r_1+r_t)}}\right|                                                 \\
+             & \phantom{=} +\left(\sqrt{\frac{2\mu r_t}{r_2(r_2+r_t)}}-\sqrt{\frac{\mu}{r_2}}\right)                                                               \\
+\end{align*}
+\begin{equation}
+    \Delta V = \sqrt{\frac{2\mu r_t}{r_1(r_1+r_t)}}+\sqrt{\frac{2\mu r_t}{r_2(r_2+r_t)}}-\sqrt{\frac{\mu}{r_1}}-\sqrt{\frac{\mu}{r_2}}+\left|\sqrt{\frac{2\mu r_2}{r_t(r_2+r_t)}}-\sqrt{\frac{2\mu r_1}{r_t(r_1+r_t)}}\right|
+\end{equation}
+
+The time it takes to complete this transfer can be calculated with Equation \eqref{Period Geometric} as the sum of the half-periods of both transfer orbits.
+\begin{align*}
+    t & =\frac{T_\text{tr1}}{2}+\frac{T_\text{tr2}}{2}                                                             \\
+      & =\frac{1}{2}\left(\sqrt{\frac{4\pi^2 a_\text{tr1}^3}{\mu}}+\sqrt{\frac{4\pi^2 a_\text{tr2}^3}{\mu}}\right) \\
+      & =\pi\left(\sqrt{\frac{a_\text{tr1}^3}{\mu}}+\sqrt{\frac{a_\text{tr2}^3}{\mu}}\right)                       \\
+      & =\pi\left(\sqrt{\frac{(\frac{1}{2}(r_1+r_t))^3}{\mu}}+\sqrt{\frac{(\frac{1}{2}(r_2+r_t))^3}{\mu}}\right)   \\
+\end{align*}
+\begin{equation}\label{Bielliptic time}
+    t_\text{tr}=\pi\left(\sqrt{\frac{(r_1+r_t)^3}{8\mu}}+\sqrt{\frac{(r_2+r_t)^3}{8\mu}}\right)
+\end{equation}
+
+\subsubsection{\texorpdfstring{$\Delta V$}{DeltaV} Analysis for Bi-Elliptic Transfers}
+
+Using the same notation as before with $r_2=\alpha r_1$, this equation can be compared to Equation \eqref{Delta V in terms of Alpha Hohmann}. This will allow for comparisons in efficiency.
+
+\begin{align*}
+    \Delta V & = \sqrt{\frac{2\mu r_t}{r_1(r_1+r_t)}}+\sqrt{\frac{2\mu r_t}{r_2(r_2+r_t)}}-\sqrt{\frac{\mu}{r_1}}-\sqrt{\frac{\mu}{r_2}}+\left|\sqrt{\frac{2\mu r_2}{r_t(r_2+r_t)}}-\sqrt{\frac{2\mu r_1}{r_t(r_1+r_t)}}\right|                                    \\
+             & = \sqrt{\frac{2\mu r_t}{r_1(r_1+r_t)}}+\sqrt{\frac{2\mu r_t}{\alpha r_1(\alpha r_1+r_t)}}-\sqrt{\frac{\mu}{r_1}}-\sqrt{\frac{\mu}{\alpha r_1}}+\left|\sqrt{\frac{2\mu \alpha r_1}{r_t(\alpha r_1+r_t)}}-\sqrt{\frac{2\mu r_1}{r_t(r_1+r_t)}}\right| \\
+             & = \sqrt{\frac{\mu}{r_1}}\left(\sqrt{\frac{2r_t}{r_1+r_t}}+\sqrt{\frac{2r_t}{\alpha(\alpha r_1+r_t)}}-\sqrt{\frac{1}{\alpha}}-1\right)+\sqrt{\frac{\mu r_1}{r_t}}\left|\sqrt{\frac{2\alpha}{\alpha r_1+r_t}}-\sqrt{2\frac{1}{r_1+r_t}}\right|
+\end{align*}
+
+Now, a new parameter $\beta$ will be defined such that $\beta=\frac{r_t}{r_1}$, or $r_t=\beta$.
+
+\begin{align*}
+    \Delta V & = \sqrt{\frac{\mu}{r_1}}\left(\sqrt{\frac{2r_t}{r_1+r_t}}+\sqrt{\frac{2r_t}{\alpha(\alpha r_1+r_t)}}-\sqrt{\frac{1}{\alpha}}-1\right)+\sqrt{\frac{\mu r_1}{r_t}}\left|\sqrt{\frac{2\alpha}{\alpha r_1+r_t}}-\sqrt{2\frac{1}{r_1+r_t}}\right|                                         \\
+             & =\sqrt{\frac{\mu}{r_1}}\left(\sqrt{\frac{2\beta r_1}{r_1+\beta r_1}}+\sqrt{\frac{2\beta r_1}{\alpha(\alpha r_1+\beta r_1)}}-\sqrt{\frac{1}{\alpha}}-1\right)+\sqrt{\frac{\mu r_1}{\beta r_1}}\left|\sqrt{\frac{2\alpha}{\alpha r_1+\beta r_1}}-\sqrt{\frac{2}{r_1+\beta r_1}}\right| \\
+             & =\sqrt{\frac{\mu}{r_1}}\left(\sqrt{\frac{2\beta}{1+\beta}}+\sqrt{\frac{2\beta}{\alpha(\alpha+\beta)}}-\sqrt{\frac{1}{\alpha}}-1\right)+\sqrt{\frac{\mu}{\beta r_1}}\left|\sqrt{\frac{2\alpha}{\alpha+\beta}}-\sqrt{\frac{2}{1+\beta}}\right|                                         \\
+\end{align*}
+\begin{equation}\label{Bi-Elliptic DeltaV in terms of alpha, beta, r1}
+    \Delta V(\alpha,\beta,r_1) = \sqrt{\frac{\mu}{r_1}}\left(\sqrt{\frac{2\beta}{1+\beta}}+\sqrt{\frac{2\beta}{\alpha(\alpha+\beta)}}-\sqrt{\frac{1}{\alpha}}-1+\left|\sqrt{\frac{2\alpha}{\beta(\alpha+\beta)}}-\sqrt{\frac{2}{\beta(1+\beta)}}\right|\right)
+\end{equation}
+
+Because $r_1$ shows up only in the denominator, it is clear that, much like a Hohmann transfer, a bi-elliptic transfer's $\Delta V$ scales with the inverse of the square root of the starting orbit altitude.
+
+\subsection{Comparison of Hohmann and Bi-Elliptic Transfers}
+
+With mathematic analyses completed of both Hohmann and bi-elliptic transfers, the two can be compared to determine when each is more efficient in terms of time and in terms of $\Delta V$ expenditure.
+
+First, transfer times will be analyzed. Equations \eqref{Hohmann time} and \eqref{Bielliptic time} that the transfers have a transfer time of
+
+$$t_\text{Hohmann}=\frac{\pi}{\sqrt{8\mu}}(r_1+r_2)^{3/2}\qquad\text{and}\qquad t_\text{Bi-Elliptic}=\frac{\pi}{\sqrt{8\mu}}\left((r_1+r_t)^{3/2}+(r_2+r_t)^{3/2}\right)$$
+
+It is clear that the bi-elliptic transfer takes substantially longer than the Hohmann transfer, taking at best almost twice as long (as for a Hohmann transfer, only 180 degrees of the orbit must be traversed, whereas the bi-elliptic transfer requires 360 degrees to be traversed). If the bi-elliptic transfer is allowed to approach a bi-parabolic transfer, then the transfer time approaches infinity.
+
+Comparing the $\Delta V$ efficiencies is substantially harder.
+
+Differentiation of \eqref{Bi-Elliptic DeltaV in terms of alpha, beta, r1} with respect to $\beta$ can show the relationship between $\beta$ and $\Delta V$ for a bi-elliptic transfer. Because of how unwieldy this equation is, fewer steps are shown than would be elsewhere. Note that the term inside the absolute value is negative if $\alpha<1$, and positive if $\alpha>1$
+
+%\begin{align*}
+%    \frac{\partial\Delta V}{\partial\alpha} &= \frac{\partial}{\partial\alpha}\sqrt{\frac{\mu}{r_1}}\left(\sqrt{\frac{2\beta}{1+\beta}}+\sqrt{\frac{2\beta}{\alpha(\alpha+\beta)}}-\sqrt{\frac{1}{\alpha}}-1+\left|\sqrt{\frac{2\alpha}{\beta(\alpha+\beta)}}-\sqrt{\frac{2}{\beta(1+\beta)}}\right|\right)\\
+%    &= \sqrt{\frac{\mu}{r_1}}\left(\frac{\partial}{\partial\alpha}\sqrt{\frac{2\beta}{\alpha(\alpha+\beta)}}-\frac{\partial}{\partial\alpha}\sqrt{\frac{1}{\alpha}}+\frac{\partial}{\partial\alpha}\sqrt{\frac{2\alpha}{\beta(\alpha+\beta)}}\right)\\
+%    &= \sqrt{\frac{\mu}{r_1}}\left(\frac{1}{2\alpha^{3/2}}-\sqrt{\frac{\beta}{2\alpha^3(\alpha+\beta)}}\right)\\
+%\end{align*}
+
+%Note that $\alpha<\beta$ (and $\beta>1$) at all times, as the transfer apoapsis must be above both the destination and origin orbits. When $\beta>\alpha$, the above expression is always less than zero. This means that a bielliptic transfer, for any given $\beta$, will take less $\Delta V$ for a larger $\alpha$. Recall that the opposite was found for Hohmann transfers, which take \textit{more} $\Delta V$ for a larger transfer. 
+
+\begin{align*}
+    \frac{\partial\Delta V}{\partial\beta} & = \frac{\partial}{\partial\beta}\sqrt{\frac{\mu}{r_1}}\left(\sqrt{\frac{2\beta}{1+\beta}}+\sqrt{\frac{2\beta}{\alpha(\alpha+\beta)}}-\sqrt{\frac{1}{\alpha}}-1+\left|\sqrt{\frac{2\alpha}{\beta(\alpha+\beta)}}-\sqrt{\frac{2}{\beta(1+\beta)}}\right|\right)         \\
+                                           & = \sqrt{\frac{\mu}{r_1}}\left(\frac{\beta+\operatorname{S}(\alpha)+2\beta\operatorname{S}(\alpha)}{\sqrt{2\beta^3(1+\beta)^3}}+\frac{\alpha\beta-\operatorname{S}(\alpha)\alpha^2-2\alpha\beta\operatorname{S}(\alpha)}{\sqrt{2\alpha\beta^3(\alpha+\beta)^3}}\right) \\
+\end{align*}
+
+where $\operatorname{S}(\alpha)$ is defined as
+\begin{equation*}
+    \operatorname{S}(\alpha)=\begin{cases}
+        1  & \alpha>1 \\
+        -1 & \alpha<1
+    \end{cases}
+\end{equation*}
+
+When $\alpha<1$, the derivative never evaluates to zero, and is always positive. This means that when $\alpha<1$, the bi-elliptic transfer becomes more and more inefficient as the transfer apoapsis is raised. In other words, the bi-transfer requires at best the same $\Delta V$ as a Hohmann transfer. Recall that when $\beta=\alpha$, the bi-elliptic transfer is a Hohmann transfer, meaning when $\beta>\alpha$ and $\alpha<1$ the bi-elliptic transfer is less efficient than the simpler Hohmann transfer. The case of $\beta<\alpha$ is also not physically possible, as it does not describe a bi-elliptic transfer. We can therefore discard all $\alpha<1$ for the bi-elliptic transfer analysis, as a Hohmann transfer will be more efficient than the bi-elliptic transfer for this domain. This allows the derivative of \eqref{Bi-Elliptic DeltaV in terms of alpha, beta, r1} to be simplified to
+
+\begin{equation}\label{Bielliptic DV derivative}
+    \left(\frac{\partial\Delta V}{\partial\beta}\right)_{\alpha>1} = \sqrt{\frac{\mu}{r_1}}\left(\frac{3\beta+1}{\sqrt{2\beta^3(1+\beta)^3}}-\frac{\alpha}{\sqrt{2\alpha\beta^3(\alpha+\beta)}}\right)
+\end{equation}
+
+\eqref{Bi-Elliptic DeltaV in terms of alpha, beta, r1} is always decreasing. In other words, so long as the first derivative is ever negative, the most efficient transfer will occur at the largest $\beta$. Recall that when $\beta=\alpha$, the transfer is a Hohmann transfer. This means $\beta$ is bounded by $\alpha\leq\beta<\infty$.
+
+If the derivative of $\Delta V$ with respect to $\beta$ at $\beta=\alpha$ is negative, it means that increasing $\beta$ will decrease the $\Delta V$, making the transfer at worst just as efficient as a Hohmann transfer. The calculated derivative is always decreasing (the second derivative is always negative), so if there is some $\alpha$ such that $\alpha=\beta$ and the derivative is less than zero, then the $\Delta V$ for a bi-elliptic trajectory will be less than that of a Hohmann transfer for $\beta>\alpha$. Starting at the first $\alpha$ where this occurs, bi-elliptic transfers will always be more efficient than Hohmann transfers.
+
+\begin{align*}
+    0                                              & = \left(\frac{\partial\Delta V}{\partial\beta}\right)_{\alpha>1,\alpha=\beta}                                                                      \\
+    0                                              & = \sqrt{\frac{\mu}{r_1}}\left(\frac{3\beta+1}{\sqrt{2\beta^3(1+\beta)^3}}-\frac{\alpha}{\sqrt{2\alpha\beta^3(\alpha+\beta)}}\right)_{\alpha=\beta} \\
+    0                                              & =\sqrt{\frac{\mu}{r_1}}\left(\frac{3\alpha+1}{\sqrt{2\alpha^3(1+\alpha)^3}}-\frac{\alpha}{\sqrt{2\alpha\alpha^3(\alpha+\alpha)}}\right)            \\
+    0                                              & =\frac{3\alpha+1}{\sqrt{2\alpha^3(1+\alpha)^3}}-\frac{\alpha}{\sqrt{2\alpha\alpha^3(\alpha+\alpha)}}                                               \\
+    0                                              & =\frac{3\alpha+1}{\sqrt{2\alpha^3(1+\alpha)^3}}-\frac{1}{\sqrt{4\alpha^3}}                                                                         \\
+    \frac{3\alpha+1}{\sqrt{2\alpha^3(1+\alpha)^3}} & =\frac{1}{\sqrt{4\alpha^3}}                                                                                                                        \\
+    \frac{3\alpha+1}{\sqrt{2\alpha^3(1+\alpha)^3}} & =\frac{2^{-1/2}(1+\alpha)^{3/2}}{\sqrt{2\alpha^3(1+\alpha)^3}}                                                                                     \\
+    3\alpha+1                                      & =2^{-1/2}(1+\alpha)^{3/2}                                                                                                                          \\
+    9\alpha^2+6\alpha+1                            & =\frac{1}{2}(1+\alpha)^3                                                                                                                           \\
+    18\alpha^2+12\alpha+2                          & =1+3\alpha+3\alpha^2+3\alpha^3                                                                                                                     \\
+    0                                              & =-\alpha^3+15\alpha^2+9\alpha+1
+\end{align*}
+
+This is not factorable. While there is a formula much like the quadratic formula that can solve cubics, it is a very long and unwieldy formula. Instead, this will be solved numerically. The single positive root of this cubic is
+$$\alpha=15.58172\dots$$
+
+Beyond this $\alpha$, a bi-elliptic transfer is \textit{always} more efficient than a Hohmann transfer, with the $\Delta V$ requirement decreasing as $\beta$ increases. However, this is not the only time that a bi-elliptic transfer requires less $\Delta V$ than its simpler counterpart.
+
+We will subtract the Hohmann transfer $\Delta V$ from the bi-elliptic transfer one. When this is negative, it means that $\Delta V_\text{Hohmann}>\Delta V_\text{bi-elliptic}$. If this difference is set to zero (and the condition is applied that $\beta>\alpha$), then the $\alpha,\beta$ pairs can be found at which the two transfers are equally efficient. Bi-elliptic will be abbreviated in subscripts as BE, while Hohmann will be abbreviated H.
+
+\begin{align*}
+    0 & =\Delta V_\text{BE}-\Delta V _\text{H}                                                                                                                                                                                                               \\
+    0 & =\sqrt{\frac{\mu}{r_1}}\left(\sqrt{\frac{2\beta}{1+\beta}}+\sqrt{\frac{2\beta}{\alpha(\alpha+\beta)}}-\sqrt{\frac{1}{\alpha}}-1\right)+\sqrt{\frac{\mu}{r_1}}\left|\sqrt{\frac{2\alpha}{\beta(\alpha+\beta)}}-\sqrt{\frac{2}{\beta(1+\beta)}}\right| \\
+      & \phantom{=}-\sqrt{\frac{\mu}{r_1}}\left|\sqrt{\frac{2\alpha}{1+\alpha}}+\sqrt{\frac{1}{\alpha}}-\sqrt{\frac{2}{\alpha(1+\alpha)}}-1\right|                                                                                                           \\\\
+    0 & =\left(\sqrt{\frac{2\beta}{1+\beta}}+\sqrt{\frac{2\beta}{\alpha(\alpha+\beta)}}-\sqrt{\frac{1}{\alpha}}-1\right)+\left|\sqrt{\frac{2\alpha}{\beta(\alpha+\beta)}}-\sqrt{\frac{2}{\beta(1+\beta)}}\right|                                             \\
+      & \phantom{=}-\left|\sqrt{\frac{2\alpha}{1+\alpha}}+\sqrt{\frac{1}{\alpha}}-\sqrt{\frac{2}{\alpha(1+\alpha)}}-1\right|                                                                                                                                 \\
+\end{align*}
+
+Because when $\alpha<1$ the bi-elliptic transfer is less efficient than the Hohmann transfer, $\alpha$ can be assumed to be greater than 1. This means that the absolute values can dissapear, as the expressions inside of them will always be positive.
+
+\begin{align*}
+    0 & =\left(\sqrt{\frac{2\beta}{1+\beta}}+\sqrt{\frac{2\beta}{\alpha(\alpha+\beta)}}-\sqrt{\frac{1}{\alpha}}-1\right)+\left(\sqrt{\frac{2\alpha}{\beta(\alpha+\beta)}}-\sqrt{\frac{2}{\beta(1+\beta)}}\right) \\
+      & \phantom{=}-\left(\sqrt{\frac{2\alpha}{1+\alpha}}+\sqrt{\frac{1}{\alpha}}-\sqrt{\frac{2}{\alpha(1+\alpha)}}-1\right)
+\end{align*}
+\begin{equation}\label{Equality for Efficiency}
+    \sqrt{\frac{1}{\beta(1+\beta)}}+\sqrt{\frac{\alpha}{1+\alpha}}+\sqrt{\frac{2}{\alpha}}=\sqrt{\frac{\beta}{1+\beta}}+\sqrt{\frac{\beta}{\alpha(\alpha+\beta)}}+\sqrt{\frac{\alpha}{\beta(\alpha+\beta)}}+\sqrt{\frac{1}{\alpha(1+\alpha)}}
+\end{equation}
+
+If a bi-elliptic transfer is as efficient as a Hohmann transfer at some $\beta>\alpha$, then it will be more efficient for \textit{all} $\beta$ above that $\alpha$. By allowing $\beta$ to approach infinity, the minimum $\alpha$ can be found such that it satisfies Equation \eqref{Equality for Efficiency}.
+
+\begin{align*}
+    \lim_{\beta\rightarrow\infty}\sqrt{\frac{1}{\beta(1+\beta)}}+\sqrt{\frac{\alpha}{1+\alpha}}+\sqrt{\frac{2}{\alpha}} & =\lim_{\beta\rightarrow\infty}\sqrt{\frac{\beta}{1+\beta}}+\lim_{\beta\rightarrow\infty}\sqrt{\frac{\beta}{\alpha(\alpha+\beta)}}+\lim_{\beta\rightarrow\infty}\sqrt{\frac{\alpha}{\beta(\alpha+\beta)}}+\sqrt{\frac{1}{\alpha(1+\alpha)}} \\
+    \sqrt{\frac{\alpha}{1+\alpha}}+\sqrt{\frac{2}{\alpha}}                                                              & =1+\sqrt{\frac{1}{\alpha}}+\sqrt{\frac{1}{\alpha(1+\alpha)}}                                                                                                                                                                               \\
+    \sqrt{\frac{\alpha^2}{\alpha(1+\alpha)}}+\sqrt{\frac{2(1+\alpha)}{\alpha(1+\alpha)}}                                & =\sqrt{\frac{\alpha(1+\alpha)}{\alpha(1+\alpha)}}+\sqrt{\frac{1+\alpha}{\alpha(1+\alpha)}}+\sqrt{\frac{1}{\alpha(1+\alpha)}}                                                                                                               \\
+    0                                                                                                                   & =\alpha+\sqrt{2(\alpha+1)}-\sqrt{\alpha(\alpha+1)}-\sqrt{\alpha+1}-1
+\end{align*}
+
+This is unfortunately not analytically solvable, but it can be solved with numerical methods. It yields
+
+$$\alpha\approx11.93876$$
+
+At all $\alpha<11.93876$, a Hohmann transfer is more efficient. At all $\alpha>15.58172$, a bi-elliptic transfer is always more efficient. Between these two $\alpha$ values, the choice of $\beta$ determines which is more efficient. Of course, the transfer time approaches infinity as $\beta$ approaches infinity, which is required for the bi-elliptic transfer to be more efficient than the Hohmann transfer as $\alpha\rightarrow11.93876$.
 
 \bigskip\bigskip
 \subsection{Combined Manuever}
@@ -1955,6 +2194,35 @@ If instead the angle $\varPhi$ between the vectors is known, this simplifies to
 \begin{equation}
     \Delta V = \sqrt{v_1^2+v_2^2-2v_1v_2\cos(\varPhi)}
 \end{equation}
+
+\bigskip\bigskip
+\subsection{Conclusion}
+
+\bigskip
+To change the inclination of an orbit, a normal burn should be done at either the ascending or descending node. The $\Delta V$ required to change the inclination by a given amount is
+$$\Delta V=2\sin\left(\frac{\Delta i}{2}\right)$$
+
+\bigskip
+To transfer between two circular orbits, the most simple trajectory is a Hohmann transfer, in which a satellite first enters a transfer orbit that is tangent to both the destination and origin orbits, and then circularizes at the destination orbit. If $\alpha$ describes the ratio of source orbit to destination orbit and $r_1$ is the origin orbit's radius, the $\Delta V$ required for a Hohmann transfer is
+$$\Delta V_\text{Hohmann} = \sqrt{\frac{\mu}{r_1}}\left|\sqrt{\frac{2\alpha}{1+\alpha}}+\sqrt{\frac{1}{\alpha}}-\sqrt{\frac{2}{\alpha(1+\alpha)}}-1\right|$$
+
+Time time it takes for a Hohmann transfer is
+$$t_\text{Hohmann}=\pi\sqrt{\frac{(r_1+r_2)^3}{8\mu}}$$
+
+\bigskip
+A bi-elliptic transfer, much like a Hohmann transfer, transfers between two orbits with a ratio $\alpha=r_2/r_1$. A bi-elliptic transfer takes three burns, instead of the two that are needed for a Hohmann transfer. In a bi-elliptic transfer, the transfer orbit has an apoapsis above both the origin and destination orbits. If $\beta$ describes the ratio of this apoapsis to the origin orbit radius, then the $\Delta V$ required for a bi-elliptic transfer is
+$$\Delta V_\text{bi-elliptic} = \sqrt{\frac{\mu}{r_1}}\left(\sqrt{\frac{2\beta}{1+\beta}}+\sqrt{\frac{2\beta}{\alpha(\alpha+\beta)}}-\sqrt{\frac{1}{\alpha}}-1+\left|\sqrt{\frac{2\alpha}{\beta(\alpha+\beta)}}-\sqrt{\frac{2}{\beta(1+\beta)}}\right|\right)$$
+
+with a longer transfer time of
+$$t_\text{bi-elliptic}=\pi\left(\sqrt{\frac{(r_1+r_t)^3}{8\mu}}+\sqrt{\frac{(r_2+r_t)^3}{8\mu}}\right)$$
+
+For all $\alpha<11.93876$, a Hohmann transfer is always more efficient than a bi-elliptic transfer. For all $\alpha>15.58172$, a bi-elliptic transfer is more efficient. For all $\alpha$ between these values, there exists a $\beta$ above which the bi-elliptic transfer is more efficient and below which the Hohmann transfer is more efficient.
+
+\bigskip
+
+For complex single-burn maneuvers in which both the beginning velocity vector and desired velocity vector are known, the $\Delta V$ required to complete the maneuver is
+$$\Delta V = \sqrt{v_1^2+v_2^2-2v_1v_2\cos(\Delta \phi)\cos(\Delta j)}$$
+
 
 \pagebreak
 \section{Advanced Maneuvers}
@@ -2259,6 +2527,21 @@ The term "gravity assist" is possibly a bit of a misnomer, as the gravity serves
 
 %TODO: Patched Conics
 %TODO: Lagrange Points
+
+\bigskip\bigskip
+\subsection{Conclusion}
+
+A gravity assist is a method of using a hyperbolic flyby around a planet to change a satellite's velocity vector around the sun. If the limiting velocity of the hyperbolic orbit and the closest approach altitude are known, then the semi-major axis and eccentricity of the flyby can be calculated as
+$$a=\frac{-\mu_p}{v_\infty^2}\qquad\text{and}\qquad e=\frac{r_\text{pe}v_\infty^2}{\mu_p}+1$$
+
+The magnitude of the change in velocity vector about the sun from a flyby is given by
+$$\Delta V_\text{assist}=\frac{2\mu_p v_\infty}{r_\text{pe}v_\infty^2+\mu_p}$$
+
+To optimize this $\Delta V$, the closest approach distance should be minimized. For any given closest approach distance,
+$$v_{\infty,\text{best}}=\sqrt{\frac{\mu_p}{r_\text{pe}}}=v_\text{circ@pe}$$
+
+Yielding a $\Delta V$ of
+$$v_\text{assist,best} = \sqrt{\frac{\mu_p}{r_\text{pe}}}$$
 
 \pagebreak
 \section{Appendix}
